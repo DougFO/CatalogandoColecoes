@@ -1,18 +1,22 @@
 package br.edu.iff.ccc.bsi.webdev.controller.apirest;
-
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.edu.iff.ccc.bsi.webdev.entities.Usuario;
-
-
+import br.edu.iff.ccc.bsi.webdev.repository.UsuarioRepository;
 @RestController
 @RequestMapping(path = "/api")
 public class MainRestController {
@@ -42,6 +46,7 @@ public class MainRestController {
 	public String page2(@RequestParam String nome) {
 		return "Olá mundo -->"+nome;
 	}
+	
 	
 	@GetMapping("/testeVeP/{id2}")
 	//public String page2(@PathVariable("id2") int id2, @RequestParam String nome2) {
@@ -89,13 +94,61 @@ public class MainRestController {
 	
 //	@PostMapping(value = "/user", method = RequestMethod.POST)
 	@PostMapping("/user")
+	@ResponseBody
 	public String saveUser(@ModelAttribute Usuario user) {	
 			System.out.println("User ID:" + user.getID());
 			System.out.println("User ID:" + user.getUsername());
 			System.out.println("User ID:" + user.getPassword());
 			
-			return user.getUsername();
+			//return user.getUsername();
+			return "Funfou!"+user.getUsername();
 			
 	}
-
+	
+	
+////	@PostMapping(value = "/user", method = RequestMethod.POST)
+//	@PostMapping(value = "/user/estudo")
+//	@ResponseBody
+//	//@PostMapping("/user/estudo")
+//	public String saveUserEstudo(@ModelAttribute Usuario user) {	
+////			System.out.println("User ID:" + user.getID());
+////			System.out.println("User ID:" + user.getUsername());
+////			System.out.println("User ID:" + user.getPassword());
+//			
+//			
+//			//return "Funcionou"+$_POST["tUserName"];
+//			return "Funcionou";
+//			//return user.getUsername();
+//			
+//	}
+	
+	@Autowired
+	private UsuarioRepository res;
+	
+	
+	
+//	@PostMapping(value = "/user", method = RequestMethod.POST)
+//	@PostMapping(value = "/user/cadastroUsuario")
+	@PostMapping(value = "/cadastroUsuario/save")
+	@ResponseBody
+	//@PostMapping("/user/estudo")
+	public String saveUserEstudo( Usuario user) {	
+//			System.out.println("User ID:" + user.getID());
+//			System.out.println("User ID:" + user.getUsername());
+//			System.out.println("User ID:" + user.getPassword());
+			
+			Usuario u = res.save(user);
+			//return "Funcionou"+$_POST["tUserName"];
+			//return "Funcionou";
+			return "Usuário adicionado --> "+u.getID()+" --> ";
+			//return user.getUsername();
+			
+	}
+	
+	
+	
+	
+	
+	
 }
+

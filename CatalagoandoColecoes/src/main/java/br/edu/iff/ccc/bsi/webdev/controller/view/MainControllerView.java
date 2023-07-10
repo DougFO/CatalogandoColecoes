@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+
 @Controller
 @RequestMapping(path = "/home")
 public class MainControllerView {
@@ -14,4 +16,41 @@ public class MainControllerView {
 		}
 		
 		
+//		@RequestMapping("/register")
+//		public class RegisterFormController {
+//			
+//		  @RequestMapping(method = POST)
+//		  public String processForm(
+//		      User user, Model model) {
+//				
+//		    model.addAttribute("firstname", user.getFirstName());
+//		    model.addAttribute("lastname", user.getLastName());
+//				
+//		    return "profile";
+//				
+//		  }
+//			
+//		}
+		
+		
+		
 }
+
+//@Controller
+//@RequestMapping("/register")
+//public class RegisterFormController {
+//	
+//  @RequestMapping(method = POST)
+//  public String processForm(
+//      User user, Model model) {
+//		
+//	  model.addAttribute("firstname", user.getFirstName());
+//    model.addAttribute("lastname", user.getLastName());
+//		
+//    return "profile";
+//		
+//  }
+//	
+//}
+
+
