@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 @Entity
 public class Usuario {
 	
@@ -22,23 +23,26 @@ public class Usuario {
 	@Column(nullable = false)
 	private int nivel;
 	
+	@OneToOne(mappedBy="usuario")
+	private Pessoa pessoa;
+	
 	public Long getID() {
 		return ID;
 	}
 	public void setID(Long iD) {
 		ID = iD;
-	}
+	}	
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String login) {
+		this.username = login;
 	}
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String senha) {
+		this.password = senha;
 	}
 	public int getNivel() {
 		return nivel;

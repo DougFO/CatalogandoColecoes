@@ -1,10 +1,38 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
 import java.util.Calendar;
+import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class Colecao {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
+	
+	@OneToOne
+	@JoinColumn(name="fk_pessoa",nullable = false)
+	//@Column(nullable = false)
 	private Pessoa pessoa;
+	
+	@ManyToMany
+	@JoinTable(name = "item_colecao",
+			   joinColumns = @JoinColumn(name = "fk_colecao"),
+			   inverseJoinColumns = @JoinColumn(name = "fk_item"))
+	private List<Item> itens;
+	
 	private String nome,observacao;
 	private Calendar data_inicio;
 	public Long getID() {

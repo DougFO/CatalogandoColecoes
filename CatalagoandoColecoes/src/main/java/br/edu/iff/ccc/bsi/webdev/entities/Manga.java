@@ -1,14 +1,23 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
-public class Manga extends Item{
-	private String tipo;
+import jakarta.persistence.Entity;
 
-	public String getTipo() {
-		return tipo;
+
+@Entity
+public class Manga extends Item{
+	
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	private Long ID;
+	
+	private int tipo;
+
+	public TipoManga getTipo() {
+		return TipoManga.toEnum(tipo);
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipo(TipoManga tipo) {
+		this.tipo = tipo.getCode();
 	}
 	
 	

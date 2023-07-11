@@ -1,9 +1,12 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Endereco {
 	
 //	private Long ID;
-	private String CEP,rua,numero,bairro,cidade,estado;
+	private String cEP,rua,numero,bairro,cidade,estado;
 //	public Long getID() {
 //		return ID;
 //	}
@@ -11,10 +14,10 @@ public class Endereco {
 //		ID = iD;
 //	}
 	public String getCEP() {
-		return CEP;
+		return cEP;
 	}
 	public void setCEP(String cEP) {
-		CEP = cEP;
+		this.cEP = cEP;
 	}
 	public String getRua() {
 		return rua;

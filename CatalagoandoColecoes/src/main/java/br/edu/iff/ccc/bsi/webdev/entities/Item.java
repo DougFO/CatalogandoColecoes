@@ -1,10 +1,41 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToMany;
+
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Item {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
-	private String isbn,autor,desenhista,genero,editoraNacional,volume,observacao;
+	
+	@Column(nullable = false)
+	private String isbn;
+	@Column(nullable = false)
+	private String titulo;
+	@Column(nullable = false)
+	private String volume;
+	
+	@ManyToMany(mappedBy = "itens")
+	private List<Colecao> colecoes;
+	
+	private String autor,desenhista,genero,editoraNacional,observacao;
 	private int qtd_paginas;
 	private float valor;
+	
+	
 	public Long getID() {
 		return ID;
 	}
@@ -16,6 +47,12 @@ public class Item {
 	}
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
+	}	
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	public String getAutor() {
 		return autor;
