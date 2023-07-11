@@ -3,6 +3,6 @@ Aplicação para catalogar coleções de usuários. O desenvolvimento dessa apli
 
 ## Começando
 Para executar esse projeto, você vai precisar ter instalado na sua máquina:
-- [Eclipse](https://www.eclipse.org/downloads/ "Eclipse") instalados anterioremente
+- [Eclipse](https://www.eclipse.org/downloads/ "Eclipse") instalado anterioremente
 - E após ter instalado o Eclipse, instalar [Spring Tools 4 for Eclipse](https://spring.io/tools)
 
