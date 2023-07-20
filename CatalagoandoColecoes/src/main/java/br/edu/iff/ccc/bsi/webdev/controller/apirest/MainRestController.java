@@ -12,45 +12,33 @@ import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import br.edu.iff.ccc.bsi.webdev.entities.Usuario;
 import br.edu.iff.ccc.bsi.webdev.repository.PessoaRepository;
 import br.edu.iff.ccc.bsi.webdev.repository.UsuarioRepository;
+import br.edu.iff.ccc.bsi.webdev.service.PessoaService;
 
 
 @RestController
 @RequestMapping(path = "/api")
 public class MainRestController {
 	
+	@Autowired
+	PessoaService pessoaService;
+	
 	@GetMapping
 	@ResponseBody
 	public String initial() {
 		return "Olá, bem vindo a API do meu app";
 	}
-	
-	
-	@Autowired
-	private UsuarioRepository reu;
-	
-	@Autowired
-	private PessoaRepository rep; 
-	
-	
-	
-//	@PostMapping(value = "/cadastroUsuario/save")
-//	@ResponseBody
-//	public String saveUserEstudo( Usuario user) {	
-//			
-//			Usuario u = res.save(user);
-//			return "Usuário adicionado --> "+u.getID()+" --> ";
-//			
-//	}
+
 	
 	@PostMapping(value = "/cadastroPessoa/save")
 	@ResponseBody
 	public String savePessoa(Pessoa pessoa, Usuario user, Endereco endereco) {	
 			
-			Usuario u = reu.save(user);
-			pessoa.setUsuario(u);
-			pessoa.setEndereco(endereco);
-			Pessoa p = rep.save(pessoa);
-			return "Usuário adicionado --> "+u.getUsername()+" --> "+p.getNome();
+			if(pessoaService.save(user, pessoa, endereco)) {
+				return "Usuário adicionado! ";
+			} else {
+				return "Usuário não adicionado! ";
+			}
+			
 			
 	}
 	
