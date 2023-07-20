@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Endereco;
+import br.edu.iff.ccc.bsi.webdev.entities.Hq;
+import br.edu.iff.ccc.bsi.webdev.entities.Item;
+import br.edu.iff.ccc.bsi.webdev.entities.Manga;
 import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import br.edu.iff.ccc.bsi.webdev.entities.Usuario;
 import br.edu.iff.ccc.bsi.webdev.repository.PessoaRepository;
 import br.edu.iff.ccc.bsi.webdev.repository.UsuarioRepository;
+import br.edu.iff.ccc.bsi.webdev.service.ItemService;
 import br.edu.iff.ccc.bsi.webdev.service.PessoaService;
 
 
@@ -21,6 +25,9 @@ public class MainRestController {
 	
 	@Autowired
 	PessoaService pessoaService;
+	
+	@Autowired
+	ItemService itemService;
 	
 	@GetMapping
 	@ResponseBody
@@ -40,6 +47,18 @@ public class MainRestController {
 			}
 			
 			
+	}
+	
+	@PostMapping(value = "/cadastro_item/save")
+	@ResponseBody
+	public String saveItem(Item item, Manga manga, Hq hq) {
+		
+		if(itemService.save(item, manga, hq)) {
+			return "Item adicionado!";
+		} else {
+			return "Item não adicionado!";
+		}
+		
 	}
 	
 	
