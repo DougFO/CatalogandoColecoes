@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>Página de cadastro de coleção</title>	
+	</head>
+	
+	<body>
+		<form method="post" action="api/cadastroPessoa/save">
+			<h2>Cadastro de Coleção</h2>
+			<label for="lPessoaPesquisa">CPF da Pessoa:</label><br>
+			<input type="text" id="lPessoaPesquisa">
+			<button type="button" id="pesquisarPessoa">Pesquisar</button><br>
+			<input type="text" id="lPessoa" name="pessoa" required>
+			<label for="lItemPesquisa">Isbn do Item:</label><br>
+			<input type="text" id="lItemPesquisa">
+			<button type="button" id="pesquisarItem">Pesquisar</button><br>
+			<input type="text" id="lItem" name="item" required>
+			<label for="lNome">Nome:</label><br>
+			<input type="text" id="lNome" name="nome"><br>
+			<label for="ldataInicio">Data de Início:</label><br>
+			<input type="date" id="ldataInicio" name="data_inicio"><br>
+			<label for="lObservacao">Observação:</label><br>
+			<textarea type="text" id="lObservacao" name="observacao"></textarea><br>
+			
+			 <input type="submit" value="Enviar">
+		</form>
+	</body>
+</html>
