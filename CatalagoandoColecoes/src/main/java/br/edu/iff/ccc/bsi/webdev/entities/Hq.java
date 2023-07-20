@@ -10,9 +10,9 @@ public class Hq extends Item{
 	
 	//private static final long serialVersionUID = 1L;
 	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	private Long ID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long ID;
 	
 	private String editoraOriginal,personagemGrupo;
 
