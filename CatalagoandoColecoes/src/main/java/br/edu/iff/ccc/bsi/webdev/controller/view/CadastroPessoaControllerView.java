@@ -10,7 +10,7 @@ public class CadastroPessoaControllerView {
 	
 	@GetMapping
 	public String page() {
-		return "cadastro_pessoa";
+		return "/cadastro/cadastro_pessoa";
 	}
 
 }
