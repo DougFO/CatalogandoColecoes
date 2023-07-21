@@ -26,8 +26,8 @@ public class ItemService {
 	
 	public boolean save(Item item, Manga manga, Hq hq) {
 		Item i = itemRepository.save(item);
-		//if (Objects.isNull(hq)) {
-		if (manga.getTipo() == 0) {
+		if (Objects.isNull(hq)) {
+		//if (manga.getTipo() == 0) {
 			Manga m = mangaRepository.save(manga);
 		} else {
 			Hq quadrinho = hqRepository.save(hq);
