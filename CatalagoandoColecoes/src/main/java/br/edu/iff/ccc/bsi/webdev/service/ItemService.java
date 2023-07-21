@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.edu.iff.ccc.bsi.webdev.entities.Hq;
 import br.edu.iff.ccc.bsi.webdev.entities.Item;
 import br.edu.iff.ccc.bsi.webdev.entities.Manga;
+import br.edu.iff.ccc.bsi.webdev.entities.TipoManga;
 import br.edu.iff.ccc.bsi.webdev.repository.HqRepository;
 import br.edu.iff.ccc.bsi.webdev.repository.ItemRepository;
 import br.edu.iff.ccc.bsi.webdev.repository.MangaRepository;
@@ -24,14 +25,29 @@ public class ItemService {
 	@Autowired
 	private HqRepository hqRepository;
 	
-	public boolean save(Item item, Manga manga, Hq hq) {
-		Item i = itemRepository.save(item);
-		if (Objects.isNull(hq)) {
+	//public boolean save(Item item, Manga manga, Hq hq) {
+	public boolean save(Item item, int t, Hq hq) {
+	//public boolean save(int t) {
+		//Item i = itemRepository.save(item);
+		////if (Objects.isNull(hq)) {
 		//if (manga.getTipo() == 0) {
-			Manga m = mangaRepository.save(manga);
-		} else {
+			//Manga m = mangaRepository.save(manga);
+		//} else {			
+			//Manga m = mangaRepository.save(manga);
+//			System.out.println("ISBN" + item.getIsbn());
+			Item i = itemRepository.save(item);
 			Hq quadrinho = hqRepository.save(hq);
-		}
+			
+			TipoManga tipoManga;		
+			tipoManga = TipoManga.toEnum(t);
+			Manga manga = new Manga();
+			manga.setTipo(tipoManga);
+			
+			System.out.println("Tipo " + manga.getTipo().getCode());
+			
+			Manga m = mangaRepository.save(manga);
+			//mangaRepository.salvar(manga.getTipo().getCode());
+		//}
 		return true;
 	}
 
