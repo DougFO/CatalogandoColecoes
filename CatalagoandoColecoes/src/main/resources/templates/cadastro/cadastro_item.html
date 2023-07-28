@@ -1,6 +1,7 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Página de cadastro de item</title>	
+		<title>Página de cadastro de item</title>
+		<link th:href="@{css/cadastro_item.css}" rel="stylesheet">
 	</head>
 	
 	<body>
@@ -25,27 +26,36 @@
 			<!--<label for="lQtdPaginas">Qtd de Páginas:</label><br>
 			<input type="text" id="lQtdPaginas" name="qtd_paginas"><br>-->
 			<label for="lObservacao">Observação:</label><br>
-			<textarea type="text" id="lObservacao" name="observacao"></textarea><br>
+			<textarea type="text" id="lObservacao" name="observacao"></textarea><br><br>
 			
-			<h2>Cadastro de Mangá</h2>
-
-			 <label for="lTipo">Tipo:</label><br>
-			 <select id="lTipo" name="tipo">
-				 <option value="0"> </option>
-				 <option value="1">Shonen</option>
-				 <option value="2">Shoujo</option>
-				 <option value="3">Seinen</option>
-				 <option value="4">Kodomo</option>
-				 <option value="5">Josei</option>				 
-			 </select><br>
+			<input type="radio" id="manga" name="opcao" value="manga" onchange="verifica()"><label for="manga">manga&nbsp;&nbsp;</label>
+			<input type="radio" id="hq" name="opcao" value="hq" onchange="verifica()"><label for="hq">HQ</label><br>				
+			
+			<div id="painelManga">
+				 <h2>Cadastro de Mangá</h2>
+				 <label for="lTipo">Tipo:</label><br>
+				 <select id="lTipo" name="tipo">
+					 <option value="0"> </option>
+					 <option value="1">Shonen</option>
+					 <option value="2">Shoujo</option>
+					 <option value="3">Seinen</option>
+					 <option value="4">Kodomo</option>
+					 <option value="5">Josei</option>				 
+				 </select><br>
+			</div>
 			 
-			 <h2>Cadastro de HQ</h2>
-			 
-			 <label for="lEditoraOriginal">Editora Original:</label>:</label><br>
-			 <input type="text" id="lEditoraOriginal" name="editoraOriginal"><br>
-			 <label for="lPersonagemGrupo">Personagem ou Grupo:</label><br>
-			 <input type="text" id="lPersonagemGrupo" name="personagemGrupo"><br><br><br>
-			 <input type="submit" value="Enviar">
+			<div id="painelHq">
+				 <h2>Cadastro de HQ</h2>
+				 
+				 <label for="lEditoraOriginal">Editora Original:</label>:</label><br>
+				 <input type="text" id="lEditoraOriginal" name="editoraOriginal"><br>
+				 <label for="lPersonagemGrupo">Personagem ou Grupo:</label><br>
+				 <input type="text" id="lPersonagemGrupo" name="personagemGrupo">
+			</div> 
+			<br><br><br>
+			<input type="submit" value="Enviar">
 		</form>
+		<script th:src="@{js/jquery3.4.1.js}"></script>
+		<script th:src="@{js/cadastro_item.js}"></script>
 	</body>
 </html>
