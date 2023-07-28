@@ -52,6 +52,7 @@ public class MainRestController {
 			
 			
 	}
+		
 	
 	@PostMapping(value = "/cadastro_item/save")
 	@ResponseBody
@@ -69,15 +70,28 @@ public class MainRestController {
 //		System.out.println("Testando ID de HQ: " + hq.getID());
 //		System.out.println("Testando ID de Mangá: " + manga.getID());
 //		System.out.println("Testando tipo: " + manga.getTipo().getCode());
-		//if(itemService.save(item, manga, hq)) {
+		//if(itemService.save(item, manga, hq)) {	
 		
 		int tipo = Integer.parseInt(itemMap.get("tipo"));
-		if(itemService.save(item, tipo, hq)) {
+		String opcao = itemMap.get("opcao");
+		
+//		System.out.println("Opção: " + opcao);
+//		
+//		if(opcao.compareTo("manga") == 0) {
+//			System.out.println("Testando Mangá: " + opcao);
+//		}
+//		
+//		if(opcao.compareTo("hq") == 0) {
+//			System.out.println("Testando HQ: " + opcao);
+//		}
+		
+		if(itemService.save(item, tipo, hq, opcao)) {
 		//if(itemService.save(tipo)) {
 			return "Item adicionado!";
 		} else {
 			return "Item não adicionado!";
 		}
+
 		
 	}
 	

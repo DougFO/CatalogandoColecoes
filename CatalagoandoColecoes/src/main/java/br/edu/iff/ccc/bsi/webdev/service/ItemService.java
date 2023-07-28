@@ -26,7 +26,8 @@ public class ItemService {
 	private HqRepository hqRepository;
 	
 	//public boolean save(Item item, Manga manga, Hq hq) {
-	public boolean save(Item item, int t, Hq hq) {
+//	public boolean save(Item item, int t, Hq hq) {
+	public boolean save(Item item, int t, Hq hq, String opcao) {
 	//public boolean save(int t) {
 		//Item i = itemRepository.save(item);
 		////if (Objects.isNull(hq)) {
@@ -38,18 +39,42 @@ public class ItemService {
 //			//Item i = itemRepository.save(item);
 //			//Hq quadrinho = hqRepository.save(hq);
 			
-			TipoManga tipoManga;		
-			tipoManga = TipoManga.toEnum(t);
-//			//Manga manga = new Manga();
-			Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao());
-			manga.setTipo(tipoManga);
-			
-			System.out.println("Tipo " + manga.getTipo().getCode());
-
-			Manga m = mangaRepository.save(manga);
-			//mangaRepository.salvar(manga.getTipo().getCode());
+//			TipoManga tipoManga;		
+//			tipoManga = TipoManga.toEnum(t);
+////			//Manga manga = new Manga();
+//			Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao());
+//			manga.setTipo(tipoManga);
+//			
+//			System.out.println("Tipo " + manga.getTipo().getCode());
+//
+//			Manga m = mangaRepository.save(manga);
+//			//mangaRepository.salvar(manga.getTipo().getCode());
 		//}
-		return true;
+			
+			if(opcao.compareTo("manga") == 0) {
+				//System.out.println("Testando Mangá: " + opcao);
+				TipoManga tipoManga;		
+				tipoManga = TipoManga.toEnum(t);
+//				//Manga manga = new Manga();
+				Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao());
+				//Manga manga = new Manga();
+				manga.setTipo(tipoManga);
+				
+				//System.out.println("Tipo " + manga.getTipo().getCode());
+
+				Manga m = mangaRepository.save(manga);
+			}
+		
+			if(opcao.compareTo("hq") == 0) {
+				//System.out.println("Testando HQ: " + opcao);
+				Hq hQ = new Hq(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao());
+				//Hq hQ = new Hq();
+				hQ.setEditoraOriginal(hq.getEditoraOriginal());
+				hQ.setPersonagemGrupo(hq.getPersonagemGrupo());
+				
+				Hq h = hqRepository.save(hQ);
+			}
+			return true;
 	}
 
 }
