@@ -10,7 +10,7 @@ public class CadastroColecaoControllerView {
 	
 	@GetMapping
 	public String page() {
-		return "/cadastro/cadastro_colecao.html";
+		return "cadastro/cadastro_colecao.html";
 	}
 
 }
