@@ -14,7 +14,19 @@ public class Hq extends Item{
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	private Long ID;
 	
-	private String editoraOriginal,personagemGrupo;
+	public Hq(String isbn, String titulo, String volume, String autor, String desenhista,
+			String genero, String editoraNacional, String observacao) {
+		super(isbn, titulo, volume, autor, desenhista,
+				genero, editoraNacional, observacao);
+		
+	}
+
+	
+	private String editoraOriginal,personagemGrupo;	
+	
+	public Hq() {
+		
+	}
 
 	public String getEditoraOriginal() {
 		return editoraOriginal;

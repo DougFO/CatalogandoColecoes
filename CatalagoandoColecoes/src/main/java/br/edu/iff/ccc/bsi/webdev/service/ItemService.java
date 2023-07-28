@@ -35,16 +35,17 @@ public class ItemService {
 		//} else {			
 			//Manga m = mangaRepository.save(manga);
 //			System.out.println("ISBN" + item.getIsbn());
-			Item i = itemRepository.save(item);
-			Hq quadrinho = hqRepository.save(hq);
+//			//Item i = itemRepository.save(item);
+//			//Hq quadrinho = hqRepository.save(hq);
 			
 			TipoManga tipoManga;		
 			tipoManga = TipoManga.toEnum(t);
-			Manga manga = new Manga();
+//			//Manga manga = new Manga();
+			Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao());
 			manga.setTipo(tipoManga);
 			
 			System.out.println("Tipo " + manga.getTipo().getCode());
-			
+
 			Manga m = mangaRepository.save(manga);
 			//mangaRepository.salvar(manga.getTipo().getCode());
 		//}
