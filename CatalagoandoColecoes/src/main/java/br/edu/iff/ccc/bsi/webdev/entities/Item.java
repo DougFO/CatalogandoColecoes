@@ -34,7 +34,24 @@ public class Item {
 	private String autor,desenhista,genero,editoraNacional,observacao;
 	private int qtd_paginas;
 	private float valor;
+		
 	
+	
+	public Item(String isbn, String titulo, String volume, String autor, String desenhista,
+			String genero, String editoraNacional, String observacao) {		
+		this.isbn = isbn;
+		this.titulo = titulo;
+		this.volume = volume;
+		this.autor = autor;
+		this.desenhista = desenhista;
+		this.genero = genero;
+		this.editoraNacional = editoraNacional;
+		this.observacao = observacao;
+	}
+	
+	public Item() {
+		
+	}
 	
 	public Long getID() {
 		return ID;

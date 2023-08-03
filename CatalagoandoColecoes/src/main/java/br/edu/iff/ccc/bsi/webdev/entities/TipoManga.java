@@ -1,7 +1,7 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
 public enum TipoManga {
-	Shonen(1), Shoujo(2), Seinen(3), Kodomo(4), Josei(5);
+	Null(0), Shonen(1), Shoujo(2), Seinen(3), Kodomo(4), Josei(5);
 	
 	private final int code;
 	

@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/Cadastro_pessoa")
-public class CadastroPessoaControllerView {
+@RequestMapping(path = "/Cadastro_colecao")
+public class CadastroColecaoControllerView {
 	
 	@GetMapping
 	public String page() {
-		return "cadastro/cadastro_pessoa";
+		return "cadastro/cadastro_colecao.html";
 	}
 
 }
