@@ -80,5 +80,10 @@ public class ColecaoService {
 	    colecao.addItem(item);
 	    return true;
 	}
+	
+	public Map<String,String> consultaColecao(String cpf) {
+		Map<String,String> colecaoConsultada = colecaoRepository.consultaColecao(cpf);
+		return colecaoConsultada;
+	}
 
 }
