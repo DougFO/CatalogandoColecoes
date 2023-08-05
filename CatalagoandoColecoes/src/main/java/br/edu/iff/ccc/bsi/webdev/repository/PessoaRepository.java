@@ -2,10 +2,19 @@ package br.edu.iff.ccc.bsi.webdev.repository;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import org.springframework.stereotype.Repository;
+
+import java.util.Map;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa,Long>{
 
+	@Query(value = "SELECT ID FROM PESSOA WHERE cpf = (?1)", nativeQuery =true)
+	String consultaIdPessoa(String cpf);
+	
+	@Query(value = "SELECT * FROM PESSOA WHERE cpf = (?1)", nativeQuery =true)
+	Map<String,String> consultaPessoa(String cpf);
 }

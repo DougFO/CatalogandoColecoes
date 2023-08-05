@@ -31,10 +31,35 @@ public class Colecao {
 	@JoinTable(name = "item_colecao",
 			   joinColumns = @JoinColumn(name = "fk_colecao"),
 			   inverseJoinColumns = @JoinColumn(name = "fk_item"))
-	private List<Item> itens;
+	private List<Item> itens;	
 	
 	private String nome,observacao;
 	private Calendar data_inicio;
+	
+	public Colecao() {
+		
+	}
+	
+	public Colecao(String nome, String observacao, Calendar data_inicio, Pessoa pessoa) {
+		this.nome = nome;
+		this.observacao = observacao;
+		this.data_inicio = data_inicio;
+		this.pessoa = pessoa;
+	}
+	
+	public void addItem(Item item) {
+		this.itens.add(item);
+	}
+	
+	public List<Item> getItens() {
+		List<Item> itensR = this.itens;
+		return itensR;
+	}
+	
+	public void removeItem(Item item) {
+		this.itens.remove(item);
+	}
+	
 	public Long getID() {
 		return ID;
 	}

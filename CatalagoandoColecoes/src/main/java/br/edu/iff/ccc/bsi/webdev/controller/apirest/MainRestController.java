@@ -56,37 +56,12 @@ public class MainRestController {
 	
 	@PostMapping(value = "/cadastro_item/save")
 	@ResponseBody
-	//public String saveItem(Item item, Manga manga, Hq hq) {
 	public String saveItem(Item item, Hq hq, @RequestParam Map<String,String> itemMap) {
-	//public String saveItem(@RequestParam Map<String,String> itemMap) {
-		
-		//System.out.println("Tipo Mangá: " + itemMap.get("tipo"));
-		
-//		TipoManga tipoManga;		
-//		tipoManga = TipoManga.toEnum(tipo);
-//		Manga manga = new Manga();
-//		manga.setTipo(tipoManga);
-//		System.out.println("Testando ID de item: " + item.getID());
-//		System.out.println("Testando ID de HQ: " + hq.getID());
-//		System.out.println("Testando ID de Mangá: " + manga.getID());
-//		System.out.println("Testando tipo: " + manga.getTipo().getCode());
-		//if(itemService.save(item, manga, hq)) {	
 		
 		int tipo = Integer.parseInt(itemMap.get("tipo"));
 		String opcao = itemMap.get("opcao");
 		
-//		System.out.println("Opção: " + opcao);
-//		
-//		if(opcao.compareTo("manga") == 0) {
-//			System.out.println("Testando Mangá: " + opcao);
-//		}
-//		
-//		if(opcao.compareTo("hq") == 0) {
-//			System.out.println("Testando HQ: " + opcao);
-//		}
-		
 		if(itemService.save(item, tipo, hq, opcao)) {
-		//if(itemService.save(tipo)) {
 			return "Item adicionado!";
 		} else {
 			return "Item não adicionado!";
@@ -94,6 +69,8 @@ public class MainRestController {
 
 		
 	}
+	
+	
 	
 	
 	
