@@ -3,6 +3,8 @@ package br.edu.iff.ccc.bsi.webdev.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,39 +48,46 @@ public class ColecaoService {
 	
 	private Map<String,String> consultaItem(String isbn) {
 		Map<String,String> itemMap = itemRepository.consultaItem(isbn);
-		//return Long.parseLong(IdItemBD);
 		return itemMap;
 	}
 	
 	public boolean save(String nome, String observacao, String data_inicio, String cpf, String isbn) throws ParseException {
-//		Long idPessoa = this.consultaIdPessoa(cpf);
-//		Long idItem = this.consultaIdItem(isbn);
 		
 		Map<String,String> dadosPessoa = this.consultaPessoa(cpf);
 		Map<String,String> dadosItem = this.consultaItem(isbn);
 		
 		Pessoa pessoa = new Pessoa();
-		pessoa.setID(Long.parseLong(dadosPessoa.get("ID")));
+		pessoa.setID(Long.parseLong(String.valueOf(dadosPessoa.get("ID"))));
 		pessoa.setCpf(dadosPessoa.get("CPF"));
 		pessoa.setNome(dadosPessoa.get("NOME"));
 		pessoa.setEmail(dadosPessoa.get("EMAIL"));
 		
 		Item item = new Item();
-		item.setID(Long.parseLong(dadosItem.get("ID")));
+
+		item.setID(Long.parseLong(String.valueOf(dadosItem.get("ID"))));
 		item.setIsbn(dadosItem.get("ISBN"));
 		item.setTitulo(dadosItem.get("TITULO"));
 		item.setVolume(dadosItem.get("VOLUME"));
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	    Calendar c = Calendar.getInstance();     
-	    c.setTime(sdf.parse(data_inicio));
-	    //aqui está o "pulo do gato"
-	    //System.out.println("Teste: "+c);
-	    //System.out.println(new java.sql.Date(c.getTimeInMillis()));
-	    
-	    Colecao colecao = new Colecao(nome,observacao,c,pessoa);
+
+		Calendar cal = Calendar.getInstance();
+		try {
+			String data = data_inicio;
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+			
+			cal.setTime(sdf.parse(data));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+	    Colecao colecao = new Colecao(nome,observacao,cal,pessoa);
+	    System.out.println("Nome Titulo: "+item.getTitulo());
 	    colecao.addItem(item);
-	    return true;
+	    if(colecaoRepository.save(colecao) != null) {
+	    	return true;
+	    } else {
+	    	return false;
+	    }
 	}
 	
 	public Map<String,String> consultaColecao(String cpf) {

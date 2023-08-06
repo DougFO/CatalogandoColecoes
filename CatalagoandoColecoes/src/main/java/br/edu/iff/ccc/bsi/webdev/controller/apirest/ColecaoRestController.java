@@ -21,7 +21,7 @@ public class ColecaoRestController {
 	@Autowired
 	ColecaoService colecaoService = new ColecaoService();
 
-	@PostMapping(value = "")
+	@PostMapping
 	@ResponseBody
 	public String save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
 		String nome = colecaoMap.get("nome");
@@ -30,9 +30,11 @@ public class ColecaoRestController {
 		String cpfPessoa = colecaoMap.get("pessoa");
 		String isbnItem = colecaoMap.get("item");
 		
-		//colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem);
-		//System.out.println("Nome: "+nome);
-		return "Coleção adicionada!";
+		if(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem)) {
+			return "Coleção adicionada!";
+		} else {
+			return "Coleção não adicionada!";
+		}
 	}
 	
 	@GetMapping("/{cpf}")

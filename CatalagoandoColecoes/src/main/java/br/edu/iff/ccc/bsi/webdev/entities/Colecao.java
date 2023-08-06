@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Colecao {
 	@JoinTable(name = "item_colecao",
 			   joinColumns = @JoinColumn(name = "fk_colecao"),
 			   inverseJoinColumns = @JoinColumn(name = "fk_item"))
-	private List<Item> itens;	
+	private List<Item> itens = new ArrayList<Item>();	
 	
 	private String nome,observacao;
 	private Calendar data_inicio;
@@ -48,6 +49,7 @@ public class Colecao {
 	}
 	
 	public void addItem(Item item) {
+		System.out.println("Nome IDF: "+item.getID());
 		this.itens.add(item);
 	}
 	
