@@ -1053,3 +1053,6 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:510)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	... 50 more
+2023-08-06 04:12:54 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO PESSOA (FK_USUARIO,ID,BAIRRO,CEP,CIDADE,CPF,EMAIL,ESTADO,NOME,NUMERO,RUA) VALUES (5,5,'JOCKEY','28020456','Campos dos Goytacazes','22511595877,'testeP@gmail.com','RJ','paloma Santos','02','DosBobos[*]');"; SQL statement:
+INSERT INTO PESSOA (FK_USUARIO,ID,BAIRRO,CEP,CIDADE,CPF,EMAIL,ESTADO,NOME,NUMERO,RUA) VALUES (5,5,'JOCKEY','28020456','Campos dos Goytacazes','22511595877,'testeP@gmail.com','RJ','paloma Santos','02','DosBobos'); [42000-214]
