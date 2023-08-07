@@ -24,17 +24,32 @@ public class ColecaoRestController {
 	@PostMapping
 	@ResponseBody
 	public String save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
-		String nome = colecaoMap.get("nome");
-		String obs = colecaoMap.get("observacao");
-		String data_inicio = colecaoMap.get("data_inicio");
+		
 		String cpfPessoa = colecaoMap.get("pessoa");
 		String isbnItem = colecaoMap.get("item");
 		
-		if(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem)) {
-			return "Coleção adicionada!";
+		if(colecaoService.verificaColecao(cpfPessoa) == null) {
+			String nome = colecaoMap.get("nome");
+			String obs = colecaoMap.get("observacao");
+			String data_inicio = colecaoMap.get("data_inicio");			
+			
+			if(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem)) {
+				return "Coleção adicionada!";
+			} else {
+				return "Coleção não adicionada!";
+			}
 		} else {
-			return "Coleção não adicionada!";
-		}
+			Long idColecao = colecaoService.verificaColecao(cpfPessoa);
+			Long idItem = colecaoService.consultaIdItem(isbnItem);
+			System.out.println("IdColecaoR: "+idColecao);
+			System.out.println("IdItemR: "+idItem);
+			
+			if(colecaoService.AddItem(idColecao, idItem)&&(idColecao != null)&&(idItem != null)) {
+				return "Item adicionado a coleção!";
+			} else {
+				return "Item não adicionado a coleção!";
+			}
+		}	
 	}
 	
 	@GetMapping("/{cpf}")

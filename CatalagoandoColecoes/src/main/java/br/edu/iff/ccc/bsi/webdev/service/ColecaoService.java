@@ -40,11 +40,14 @@ public class ColecaoService {
 		return pessoaMap;
 	}
 	
-	//private Item consultaIdItem(String isbn) {
-//	private Long consultaIdItem(String isbn) {
-//		String IdItemBD = itemRepository.consultaIdItem(isbn);
-//		return Long.parseLong(IdItemBD);
-//	}
+	public Long consultaIdItem(String isbn) {
+		if(itemRepository.consultaIdItem(isbn).get("ID") != null) {
+			Long IdItemBD = (Long.parseLong(String.valueOf(itemRepository.consultaIdItem(isbn).get("ID"))));
+			return IdItemBD;
+		}	else {
+			return null;
+		}
+	}
 	
 	private Map<String,String> consultaItem(String isbn) {
 		Map<String,String> itemMap = itemRepository.consultaItem(isbn);
@@ -93,6 +96,24 @@ public class ColecaoService {
 	public Map<String,String> consultaColecao(String cpf) {
 		Map<String,String> colecaoConsultada = colecaoRepository.consultaColecao(cpf);
 		return colecaoConsultada;
+	}
+	
+	public Long verificaColecao(String cpf) {
+		if(colecaoRepository.verificaColecao(cpf).get("ID") != null) {
+			return (Long.parseLong(String.valueOf(colecaoRepository.verificaColecao(cpf).get("ID"))));
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean AddItem(Long idColecao, Long idItem) {
+		System.out.println("IdColecaoS: "+idColecao);
+		System.out.println("IdItemS: "+idItem);
+		if(colecaoRepository.AddItem(idColecao, idItem) == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
