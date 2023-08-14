@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,9 +22,16 @@ import br.edu.iff.ccc.bsi.webdev.entities.Item;
 import br.edu.iff.ccc.bsi.webdev.service.ColecaoService;
 //Depois comentar essa linha, essas opreações devem ser feitas na coleção
 import br.edu.iff.ccc.bsi.webdev.service.ItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @RestController
 @RequestMapping(path = "api/v1/colecao")
+@Tag(name = "Coleção", description = "Controller APIREST de Coleção")
 public class ColecaoRestController {
 	
 	@Autowired
@@ -33,8 +42,19 @@ public class ColecaoRestController {
 	ItemService itemService = new ItemService();
 
 	@PostMapping(path = "")
-	@ResponseBody
-	public String save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
+	//@ResponseBody
+	@Operation(summary = "Cadastrando uma coleção")
+//	@ApiResponses({
+//	    @ApiResponse(responseCode = "201", content = {
+//	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
+//	    }, description = "Coleção Cadastrada"),
+//	    @ApiResponse(responseCode = "500", content = {
+//	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+//	    }, description = "Internal server error")
+//	})
+	//public String save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
+	//public ResponseEntity<Colecao> save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
+	public Colecao save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
 		
 		String cpfPessoa = colecaoMap.get("pessoa");
 		String isbnItem = colecaoMap.get("item");
@@ -43,15 +63,28 @@ public class ColecaoRestController {
 		String data_inicio = colecaoMap.get("data_inicio");
 
 			
-		if(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem)) {
-			return "Coleção adicionada!";
-		} else {
-			return "Coleção não adicionada!";
-		}
+//		if(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem)) {
+//			return "Coleção adicionada!";			
+//		} else {
+//			return "Coleção não adicionada!";
+//		}
+		
+		return colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem);
+		
+		//return new ResponseEntity<>(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{cpf}")
 	@ResponseBody
+	@Operation(summary = "Consultando uma coleção")
+//	@ApiResponses({
+//	    @ApiResponse(responseCode = "201", content = {
+//	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
+//	    }, description = "OK"),
+//	    @ApiResponse(responseCode = "500", content = {
+//	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+//	    }, description = "Internal server error")
+//	})
 	public Colecao consultaColecao(@PathVariable("cpf") String cpf) {
 		Colecao colecaoConsultada = colecaoService.consultaColecao(cpf);
 		if(colecaoConsultada != null) {
@@ -64,6 +97,7 @@ public class ColecaoRestController {
 	
 	@PostMapping(path = "/item")
 	@ResponseBody
+	@Operation(summary = "Adicionando um item em uma coleção")
 	public String addItem(@RequestParam Map<String,String> colecaoItemMap) {
 		
 		String cpfPessoa = colecaoItemMap.get("pessoa");
@@ -82,12 +116,22 @@ public class ColecaoRestController {
 	}
 	
 	@GetMapping
+	@Operation(summary = "Consultando todas as coleções")
+	@ApiResponses({
+	    @ApiResponse(responseCode = "200", content = {
+	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
+	    }, description = "OK"),
+	    @ApiResponse(responseCode = "500", content = {
+	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+	    }, description = "Internal server error")
+	})
 	public List<Colecao> consultaColecoes() {
 		return colecaoService.consultaColecoes();
 	}
 	
 	@PutMapping
 	@ResponseBody
+	@Operation(summary = "Atualizando uma coleção")
 	public String atualizaColecao(@RequestParam Map<String,String> colecaoMap) {
 		if(colecaoService.atualizaColecao(colecaoMap)) {
 			return "Colecação atualizada!";
@@ -98,6 +142,7 @@ public class ColecaoRestController {
 	
 	@DeleteMapping("/item")
 	@ResponseBody
+	@Operation(summary = "Deleta um item de uma coleção")
 	public String removeItem(@RequestParam Map<String,String> colecaoMap) {
 		String cpfPessoa = colecaoMap.get("pessoa");
 		String isbnItem = colecaoMap.get("item");
@@ -110,6 +155,7 @@ public class ColecaoRestController {
 	}
 	
 	@GetMapping("/item/{pessoa}/{item}")
+	@Operation(summary = "Consultando um item de uma coleção")
 	public Item consultaItemColecao(@PathVariable("pessoa") String pessoa, @PathVariable("item") String item) {
 		String cpfPessoa = pessoa;
 		String isbnItem = item;
@@ -124,6 +170,7 @@ public class ColecaoRestController {
 	}
 	
 	@GetMapping("/item/{pessoa}")
+	@Operation(summary = "Consultando todos os itens de uma coleção")
 	public List<Item> ConsultaItensColecao(@PathVariable("pessoa") String cpf) {
 		List<Item> itens = colecaoService.consultaItens(cpf);
 		if(itens != null) {
@@ -135,6 +182,7 @@ public class ColecaoRestController {
 	
 	@DeleteMapping
 	@ResponseBody
+	@Operation(summary = "Deleta uma coleção")
 	public String removeColecao(@RequestParam Map<String,String> colecaoMap) {
 		String cpfPessoa = colecaoMap.get("pessoa");
 		if(colecaoService.removeColecao(cpfPessoa)) {

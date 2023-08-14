@@ -31,13 +31,15 @@ public class ColecaoService {
 	private PessoaService pessoaService = new PessoaService();
 
 	
-	public boolean save(String nome, String observacao, String data_inicio, String cpf, String isbn) throws ParseException {
+	//public boolean save(String nome, String observacao, String data_inicio, String cpf, String isbn) throws ParseException {
+	public Colecao save(String nome, String observacao, String data_inicio, String cpf, String isbn) throws ParseException {
 		
 		Pessoa pessoa = pessoaService.consultaPessoa(cpf);
 		Item item = itemService.consultaItem(isbn);		
 		
 		if(colecaoRepository.verificaColecao(cpf) != null) {
-			return false;
+			//return false;
+			return null;
 		}
 
 		Calendar cal = Calendar.getInstance();
@@ -56,9 +58,11 @@ public class ColecaoService {
 	    //System.out.println("Nome Titulo: "+item.getTitulo());
 	    colecao.addItem(item);
 	    if(colecaoRepository.save(colecao) != null) {
-	    	return true;
+	    	//return true;
+	    	return colecao;
 	    } else {
-	    	return false;
+	    	//return false;
+	    	return null;
 	    }
 	}
 	

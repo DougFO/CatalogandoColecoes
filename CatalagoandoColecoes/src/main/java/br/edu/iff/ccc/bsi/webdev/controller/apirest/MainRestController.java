@@ -40,18 +40,18 @@ public class MainRestController {
 	}
 
 	
-	@PostMapping(value = "/cadastroPessoa/save")
-	@ResponseBody
-	public String savePessoa(Pessoa pessoa, Usuario user, Endereco endereco) {	
-			
-			if(pessoaService.save(user, pessoa, endereco)) {
-				return "Usuário adicionado! ";
-			} else {
-				return "Usuário não adicionado! ";
-			}
-			
-			
-	}
+//	@PostMapping(value = "/cadastroPessoa/save")
+//	@ResponseBody
+//	public String savePessoa(Pessoa pessoa, Usuario user, Endereco endereco) {	
+//			
+//			if(pessoaService.save(user, pessoa, endereco)) {
+//				return "Usuário adicionado! ";
+//			} else {
+//				return "Usuário não adicionado! ";
+//			}
+//			
+//			
+//	}
 		
 	
 //	@PostMapping(value = "/cadastro_item/save")

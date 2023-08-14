@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 //import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,14 +16,24 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
+@Schema(
+	    title = "Colecao",
+	    description = "Parameter required to create or update a colection",
+	    requiredMode = Schema.RequiredMode.REQUIRED
+	)
 public class Colecao {
 	
 	//private static final long serialVersionUID = 1L;
-	
+//	 @Schema(description = "Identificador da coleção.", 
+//	            example = "1")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 	
+//	private Pessoa pessoaExemplo = new Pessoa();
+	
+//	 @Schema(description = "Identificador da coleção.", 
+//    example = "1")
 	@OneToOne
 	@JoinColumn(name="fk_pessoa",nullable = false)
 	//@Column(nullable = false)
@@ -34,7 +45,16 @@ public class Colecao {
 			   inverseJoinColumns = @JoinColumn(name = "fk_item"))
 	private List<Item> itens = new ArrayList<Item>();	
 	
-	private String nome,observacao;
+	@Schema(description = "Nome da coleção.", 
+    example = "DC")
+	private String nome;
+	 
+ 	@Schema(description = "Observação da coleção.", 
+	example = "testeDC") 
+	private String observacao;
+ 	
+	@Schema(description = "Data de criação da coleção.", 
+    example = "22/08/2014")
 	private Calendar data_inicio;
 	
 	public Colecao() {

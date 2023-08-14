@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
+		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.edu.iff.ccc.bsi</groupId>
@@ -40,6 +40,16 @@
                <artifactId>h2</artifactId>
               <scope>runtime</scope>
         </dependency>
+        <dependency>
+			  <groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			  <version>2.2.0</version> 
+		</dependency>
+		<dependency>
+		    <groupId>io.swagger.core.v3</groupId>
+		    <artifactId>swagger-models</artifactId>
+		    <version>2.2.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>

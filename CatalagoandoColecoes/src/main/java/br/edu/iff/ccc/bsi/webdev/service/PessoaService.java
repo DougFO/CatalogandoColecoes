@@ -19,15 +19,18 @@ public class PessoaService {
 	@Autowired
 	private UsuarioService usuarioService = new UsuarioService();
 	
-	public boolean save(Usuario user, Pessoa pessoa, Endereco endereco) {
+	//public boolean save(Usuario user, Pessoa pessoa, Endereco endereco) {
+	public Pessoa save(Usuario user, Pessoa pessoa, Endereco endereco) {
 		pessoa.setUsuario(usuarioService.save(user));
 		pessoa.setEndereco(endereco);
 		Pessoa p = rep.save(pessoa);
 		if(p.equals(null)) {
-			return false;
+			//return false;
+			return null;
 		}
 		//rep.save(pessoa);
-		return true;
+		//return true;
+		return p;
 	}
 	
 	
