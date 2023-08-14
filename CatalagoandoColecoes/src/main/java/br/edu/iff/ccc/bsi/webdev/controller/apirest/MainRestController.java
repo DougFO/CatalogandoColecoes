@@ -54,21 +54,21 @@ public class MainRestController {
 	}
 		
 	
-	@PostMapping(value = "/cadastro_item/save")
-	@ResponseBody
-	public String saveItem(Item item, Hq hq, @RequestParam Map<String,String> itemMap) {
-		
-		int tipo = Integer.parseInt(itemMap.get("tipo"));
-		String opcao = itemMap.get("opcao");
-		
-		if(itemService.save(item, tipo, hq, opcao)) {
-			return "Item adicionado!";
-		} else {
-			return "Item não adicionado!";
-		}
-
-		
-	}
+//	@PostMapping(value = "/cadastro_item/save")
+//	@ResponseBody
+//	public String saveItem(Item item, Hq hq, @RequestParam Map<String,String> itemMap) {
+//		
+//		int tipo = Integer.parseInt(itemMap.get("tipo"));
+//		String opcao = itemMap.get("opcao");
+//		
+//		if(itemService.save(item, tipo, hq, opcao)) {
+//			return "Item adicionado!";
+//		} else {
+//			return "Item não adicionado!";
+//		}
+//
+//		
+//	}
 	
 	
 	
