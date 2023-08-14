@@ -1,9 +1,10 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import jakarta.persistence.Column;
+//import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Colecao {
 	
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +32,7 @@ public class Colecao {
 	@JoinTable(name = "item_colecao",
 			   joinColumns = @JoinColumn(name = "fk_colecao"),
 			   inverseJoinColumns = @JoinColumn(name = "fk_item"))
-	private List<Item> itens;	
+	private List<Item> itens = new ArrayList<Item>();	
 	
 	private String nome,observacao;
 	private Calendar data_inicio;
@@ -56,8 +57,29 @@ public class Colecao {
 		return itensR;
 	}
 	
-	public void removeItem(Item item) {
-		this.itens.remove(item);
+	public boolean itemIsSet(Item item) {
+		for(int i=0; i<this.itens.size(); i++) {
+			if(this.itens.get(i).getIsbn().compareTo(item.getIsbn()) == 0) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean removeItem(Item item) {
+		for(int i=0; i<this.itens.size(); i++) {
+			if(this.itens.get(i).getIsbn().compareTo(item.getIsbn()) == 0) {
+				Item itemVerificador = this.itens.remove(i);
+				if(itemVerificador == null) {
+					return false;
+				} else {
+					return true;					
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public Long getID() {

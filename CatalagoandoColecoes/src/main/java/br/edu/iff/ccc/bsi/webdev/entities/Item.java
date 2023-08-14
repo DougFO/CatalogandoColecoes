@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToMany;
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Item {
 	
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +38,7 @@ public class Item {
 	
 	
 	public Item(String isbn, String titulo, String volume, String autor, String desenhista,
-			String genero, String editoraNacional, String observacao) {		
+			String genero, String editoraNacional, String observacao, float valor, int qtd_paginas) {		
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.volume = volume;
@@ -47,6 +47,8 @@ public class Item {
 		this.genero = genero;
 		this.editoraNacional = editoraNacional;
 		this.observacao = observacao;
+		this.valor = valor;
+		this.qtd_paginas = qtd_paginas;
 	}
 	
 	public Item() {

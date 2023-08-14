@@ -1,9 +1,9 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+//import jakarta.persistence.GeneratedValue;
+//import jakarta.persistence.GenerationType;
+//import jakarta.persistence.Id;
 
 @Entity
 public class Hq extends Item{
@@ -15,9 +15,9 @@ public class Hq extends Item{
 //	private Long ID;
 	
 	public Hq(String isbn, String titulo, String volume, String autor, String desenhista,
-			String genero, String editoraNacional, String observacao) {
+			String genero, String editoraNacional, String observacao, float valor, int qtd_paginas) {
 		super(isbn, titulo, volume, autor, desenhista,
-				genero, editoraNacional, observacao);
+				genero, editoraNacional, observacao,valor,qtd_paginas);
 		
 	}
 
