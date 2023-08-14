@@ -140,17 +140,20 @@ public class ColecaoService {
 			return false;
 		}
 
-		
-		Colecao colecao = this.consultaColecao(cpfPessoa);
-		Item itemNovo = itemService.consultaItem(isbnItem);
-		colecao.addItem(itemNovo);
-		
-		Colecao colecaoTeste = colecaoRepository.saveAndFlush(colecao);
-		if(colecaoTeste.equals(null)) {
-			return false;
+		if(itemService.verificaItem(isbnItem)) {
+			Colecao colecao = this.consultaColecao(cpfPessoa);
+			Item itemNovo = itemService.consultaItem(isbnItem);
+			colecao.addItem(itemNovo);
+			
+			Colecao colecaoTeste = colecaoRepository.saveAndFlush(colecao);
+			if(colecaoTeste.equals(null)) {
+				return false;
+			} else {
+				return true;
+			}
 		} else {
-			return true;
-		}
+			return false;
+		}	
 	}
 	
 	public List<Colecao> consultaColecoes() {

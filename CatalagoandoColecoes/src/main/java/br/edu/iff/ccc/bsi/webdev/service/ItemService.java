@@ -118,6 +118,14 @@ public class ItemService {
 			return null;
 		}
 	}
+	
+	public boolean verificaItem(String isbn) {
+		if(itemRepository.verificaItem(isbn) == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 
 }
