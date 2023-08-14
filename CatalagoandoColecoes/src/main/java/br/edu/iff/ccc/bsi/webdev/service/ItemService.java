@@ -1,6 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.service;
 
-import java.util.Objects;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,26 +25,99 @@ public class ItemService {
 	@Autowired
 	private HqRepository hqRepository;
 
-	public boolean save(Item item, int t, Hq hq, String opcao) {
-
-			
-			if(opcao.compareTo("manga") == 0) {
-				TipoManga tipoManga;		
-				tipoManga = TipoManga.toEnum(t);
-				Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao());
-				manga.setTipo(tipoManga);
-
-				Manga m = mangaRepository.save(manga);
-			}
+	public boolean save(Item item, Map<String,String> itemMap) {
+		String opcao = itemMap.get("opcao");
 		
-			if(opcao.compareTo("hq") == 0) {
-				Hq hQ = new Hq(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao());
-				hQ.setEditoraOriginal(hq.getEditoraOriginal());
-				hQ.setPersonagemGrupo(hq.getPersonagemGrupo());
-				
-				Hq h = hqRepository.save(hQ);
+		if(opcao != null) {
+			if((opcao.compareTo("manga") != 0)&&(opcao.compareTo("hq") != 0)) {
+				return false;
 			}
-			return true;
+		} else {
+			return false;
+		}
+		
+		if(opcao.compareTo("manga") == 0) {
+			int tipo = Integer.parseInt(itemMap.get("tipo"));
+			TipoManga tipoManga;		
+			tipoManga = TipoManga.toEnum(tipo);
+			Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao(),item.getValor(),item.getQtd_paginas());
+			manga.setTipo(tipoManga);
+
+			Manga m = mangaRepository.save(manga);
+			if(m.equals(null)) {
+				return false;
+			} else {
+				return true;
+			}
+		} 
+		
+		if(opcao.compareTo("hq") == 0) {
+			String editoraOriginal = itemMap.get("editoraOriginal");
+			String personagemGrupo = itemMap.get("personagemGrupo");
+			
+			Hq hQ = new Hq(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao(),item.getValor(),item.getQtd_paginas());
+			hQ.setEditoraOriginal(editoraOriginal);
+			hQ.setPersonagemGrupo(personagemGrupo);
+			
+			Hq h = hqRepository.save(hQ);
+			if(h.equals(null)) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		return true;
 	}
+	
+	public Item consultaItem(String isbn) {
+		if(itemRepository.verificaItem(isbn) != null) {
+			Map<String,String> itemConsultado = itemRepository.consultaItem(isbn);
+			Item item = new Item();
+			item.setID(Long.parseLong(String.valueOf(itemConsultado.get("ID"))));
+			item.setAutor(itemConsultado.get("AUTOR"));
+			item.setDesenhista(itemConsultado.get("DESENHISTA"));
+			item.setEditoraNacional(itemConsultado.get("EDITORANACIONAL"));
+			item.setGenero(itemConsultado.get("GENERO"));
+			item.setIsbn(itemConsultado.get("ISBN"));
+			item.setObservacao(itemConsultado.get("OBSERVACAO"));
+			item.setQtd_paginas(Integer.parseInt(String.valueOf(itemConsultado.get("QTD_PAGINAS"))));
+			item.setTitulo(itemConsultado.get("TITULO"));
+			item.setValor(Float.parseFloat(String.valueOf(itemConsultado.get("VOLUME"))));
+			item.setVolume(itemConsultado.get("VOLUME"));
+			
+			return item;
+		} else {
+			return null;
+		}	
+	}
+	
+	public Item consultaItemById(Long id) {
+		Map<String,String> itemConsultado = itemRepository.consultaItemByID(id);
+		Item item = new Item();
+		item.setID(Long.parseLong(String.valueOf(itemConsultado.get("ID"))));
+		item.setAutor(itemConsultado.get("AUTOR"));
+		item.setDesenhista(itemConsultado.get("DESENHISTA"));
+		item.setEditoraNacional(itemConsultado.get("EDITORANACIONAL"));
+		item.setGenero(itemConsultado.get("GENERO"));
+		item.setIsbn(itemConsultado.get("ISBN"));
+		item.setObservacao(itemConsultado.get("OBSERVACAO"));
+		item.setQtd_paginas(Integer.parseInt(String.valueOf(itemConsultado.get("QTD_PAGINAS"))));
+		item.setTitulo(itemConsultado.get("TITULO"));
+		item.setValor(Float.parseFloat(String.valueOf(itemConsultado.get("VOLUME"))));
+		item.setVolume(itemConsultado.get("VOLUME"));
+		
+		return item;
+	}
+	
+	public Long consultaIdItem(String isbn) {
+		if(itemRepository.consultaIdItem(isbn).get("ID") != null) {
+			Long IdItemBD = (Long.parseLong(String.valueOf(itemRepository.consultaIdItem(isbn).get("ID"))));
+			return IdItemBD;
+		}	else {
+			return null;
+		}
+	}
+
 
 }

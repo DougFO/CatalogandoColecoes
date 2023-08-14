@@ -2,7 +2,10 @@ package br.edu.iff.ccc.bsi.webdev.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,7 @@ import br.edu.iff.ccc.bsi.webdev.entities.Colecao;
 import br.edu.iff.ccc.bsi.webdev.entities.Item;
 import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import br.edu.iff.ccc.bsi.webdev.repository.ColecaoRepository;
-import br.edu.iff.ccc.bsi.webdev.repository.ItemRepository;
-import br.edu.iff.ccc.bsi.webdev.repository.PessoaRepository;
+
 
 @Service
 public class ColecaoService {
@@ -21,64 +23,224 @@ public class ColecaoService {
 	@Autowired
 	private ColecaoRepository colecaoRepository;
 	
-	@Autowired
-	private ItemRepository itemRepository;
 	
 	@Autowired
-	private PessoaRepository pessoaRepository;
+	private ItemService itemService = new ItemService();
 	
-	//private Pessoa consultaIdPessoa(String cpf) {
-//	private Long consultaIdPessoa(String cpf) {
-//		String IdPessoaBD = pessoaRepository.consultaIdPessoa(cpf);
-//		return Long.parseLong(IdPessoaBD);
-//	}
-	
-	private Map<String,String> consultaPessoa(String cpf) {
-		Map<String,String> pessoaMap = pessoaRepository.consultaPessoa(cpf);
-		return pessoaMap;
-	}
-	
-	//private Item consultaIdItem(String isbn) {
-//	private Long consultaIdItem(String isbn) {
-//		String IdItemBD = itemRepository.consultaIdItem(isbn);
-//		return Long.parseLong(IdItemBD);
-//	}
-	
-	private Map<String,String> consultaItem(String isbn) {
-		Map<String,String> itemMap = itemRepository.consultaItem(isbn);
-		//return Long.parseLong(IdItemBD);
-		return itemMap;
-	}
+	@Autowired
+	private PessoaService pessoaService = new PessoaService();
+
 	
 	public boolean save(String nome, String observacao, String data_inicio, String cpf, String isbn) throws ParseException {
-//		Long idPessoa = this.consultaIdPessoa(cpf);
-//		Long idItem = this.consultaIdItem(isbn);
 		
-		Map<String,String> dadosPessoa = this.consultaPessoa(cpf);
-		Map<String,String> dadosItem = this.consultaItem(isbn);
+		Pessoa pessoa = pessoaService.consultaPessoa(cpf);
+		Item item = itemService.consultaItem(isbn);		
 		
-		Pessoa pessoa = new Pessoa();
-		pessoa.setID(Long.parseLong(dadosPessoa.get("ID")));
-		pessoa.setCpf(dadosPessoa.get("CPF"));
-		pessoa.setNome(dadosPessoa.get("NOME"));
-		pessoa.setEmail(dadosPessoa.get("EMAIL"));
+		if(colecaoRepository.verificaColecao(cpf) != null) {
+			return false;
+		}
+
+		Calendar cal = Calendar.getInstance();
+		try {
+			String data = data_inicio;
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+			
+			cal.setTime(sdf.parse(data));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
-		Item item = new Item();
-		item.setID(Long.parseLong(dadosItem.get("ID")));
-		item.setIsbn(dadosItem.get("ISBN"));
-		item.setTitulo(dadosItem.get("TITULO"));
-		item.setVolume(dadosItem.get("VOLUME"));
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	    Calendar c = Calendar.getInstance();     
-	    c.setTime(sdf.parse(data_inicio));
-	    //aqui está o "pulo do gato"
-	    //System.out.println("Teste: "+c);
-	    //System.out.println(new java.sql.Date(c.getTimeInMillis()));
-	    
-	    Colecao colecao = new Colecao(nome,observacao,c,pessoa);
+		//System.out.println("Calendar: "+cal);
+
+	    Colecao colecao = new Colecao(nome,observacao,cal,pessoa);
+	    //System.out.println("Nome Titulo: "+item.getTitulo());
 	    colecao.addItem(item);
-	    return true;
+	    if(colecaoRepository.save(colecao) != null) {
+	    	return true;
+	    } else {
+	    	return false;
+	    }
 	}
+	
+	public Long verificaColecao(String cpf) {
+		if(colecaoRepository.verificaColecao(cpf) != null) {
+			return (colecaoRepository.verificaColecao(cpf));
+		} else {
+			return null;
+		}
+	}
+	
+	public List<Item> consultaItens(String cpf) {
+		Long id = this.verificaColecao(cpf);
+		if(id != null) {
+			List<Long> itensColecao = colecaoRepository.consultaItensColecao(id);
+			List<Item> itens = new ArrayList<Item>();
+			for(int i=0;i<itensColecao.size();i++) {
+				itens.add(itemService.consultaItemById(itensColecao.get(i)));
+			}
+			return itens;
+		} else {
+			return null;
+		}
+	}
+	
+
+	public Colecao consultaColecao(String cpf) {
+		if(colecaoRepository.verificaColecao(cpf) != null) {
+			Map<String,String> colecaoConsultada = colecaoRepository.consultaColecao(cpf);
+			
+			Colecao colecao = new Colecao();
+			colecao.setID(Long.parseLong(String.valueOf(colecaoConsultada.get("ID"))));
+			colecao.setNome(colecaoConsultada.get("NOME"));
+			colecao.setObservacao(colecaoConsultada.get("OBSERVACAO"));
+	
+			Calendar cal = Calendar.getInstance();
+			try {
+				String data = String.valueOf(colecaoConsultada.get("DATA_INICIO"));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+				
+				cal.setTime(sdf.parse(data.substring(0, 10)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			colecao.setData_inicio(cal);
+			
+			Pessoa pessoa = pessoaService.consultaPessoa(cpf);
+			colecao.setPessoa(pessoa);
+			
+			List<Item> itensConsultados = this.consultaItens(cpf);
+			for(int i=0;i<itensConsultados.size();i++) {
+				colecao.addItem(itensConsultados.get(i));
+			}
+			
+			return colecao;
+		} else {
+			return null;
+		}
+	}
+		
+	
+//	public boolean AddItem(String cpfPessoa, String isbnItem) {
+//		if((cpfPessoa == "")||(isbnItem == "")) {
+//			return false;
+//		}
+//		
+//		Long idColecao = this.verificaColecao(cpfPessoa);
+//		Long idItem = itemService.consultaIdItem(isbnItem);
+//		
+//		if(colecaoRepository.AddItem(idColecao, idItem) == 1) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
+	
+	public boolean AddItem(String cpfPessoa, String isbnItem) {
+		if((cpfPessoa == "")||(isbnItem == "")) {
+			return false;
+		}
+
+		
+		Colecao colecao = this.consultaColecao(cpfPessoa);
+		Item itemNovo = itemService.consultaItem(isbnItem);
+		colecao.addItem(itemNovo);
+		
+		Colecao colecaoTeste = colecaoRepository.saveAndFlush(colecao);
+		if(colecaoTeste.equals(null)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public List<Colecao> consultaColecoes() {
+		return colecaoRepository.findAll();
+	}
+	
+	public boolean atualizaColecao(Map<String,String> colecaoMap) {
+			Colecao colecao = new Colecao();
+			colecao.setNome(colecaoMap.get("nome"));
+			colecao.setObservacao(colecaoMap.get("observacao"));
+			
+			Calendar cal = Calendar.getInstance();
+			try {
+				String data = String.valueOf(colecaoMap.get("data_inicio"));
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+				
+				cal.setTime(sdf.parse(data.substring(0, 10)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			colecao.setData_inicio(cal);
+			
+			Pessoa pessoa = pessoaService.consultaPessoa(colecaoMap.get("pessoa"));
+			colecao.setPessoa(pessoa);
+			
+			colecao.setID(colecaoRepository.verificaColecao(colecao.getPessoa().getCpf()));
+			
+			//System.out.println("Cpf Colecao: "+colecao.getPessoa().getCpf());
+			
+			Colecao colecaoConsultada = this.consultaColecao(colecao.getPessoa().getCpf());
+			
+			List<Item> itens = colecaoConsultada.getItens();
+			for(int i=0;i<itens.size();i++) {
+				colecao.addItem(itens.get(i));
+			}
+			
+			Colecao colecaoVerifica = colecaoRepository.saveAndFlush(colecao);
+			if(colecaoVerifica == null) {
+				return false;
+			}
+			return true;
+	}
+	
+	public boolean removeItem(String cpf, String isbn) {
+		Colecao colecao = this.consultaColecao(cpf);
+		Item item = itemService.consultaItem(isbn);
+		if(item != null) {
+			boolean verifica = colecao.removeItem(item);
+			if(verifica == true) {
+				Colecao colecaoVerifica = colecaoRepository.saveAndFlush(colecao);
+				if(colecaoVerifica == null) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		} else {
+			return false;
+		}
+		return false;
+	}
+	
+	public Item consultaItemColecao(String cpf, String isbn) {
+		if(colecaoRepository.verificaColecao(cpf) != null) {
+			Colecao colecao = this.consultaColecao(cpf);
+			Item item = itemService.consultaItem(isbn);
+			if(item != null) {
+				if(colecao.itemIsSet(item) == true) {
+					return item;
+				} else {
+					return null;
+				}
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean removeColecao(String cpf) {
+		if(colecaoRepository.verificaColecao(cpf) != null) {
+			Colecao colecao = this.consultaColecao(cpf);
+			colecaoRepository.delete(colecao);
+			
+			return true;
+		} else {
+			return false;
+		}			
+	}
+
 
 }
