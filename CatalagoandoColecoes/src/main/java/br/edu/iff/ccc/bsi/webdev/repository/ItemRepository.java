@@ -17,5 +17,9 @@ public interface ItemRepository extends JpaRepository<Item,Long>{
 	@Query(value = "SELECT * FROM ITEM WHERE isbn = (?1)", nativeQuery =true)
 	Map<String,String> consultaItem(String isbn);
 	
+	@Query(value = "SELECT * FROM ITEM WHERE id LIKE (?1)", nativeQuery =true)
+	Map<String,String> consultaItemByID(Long id);
 	
+	@Query(value = "SELECT ID FROM ITEM WHERE isbn LIKE (?1)", nativeQuery =true)
+	Long verificaItem(String isbn);
 }
