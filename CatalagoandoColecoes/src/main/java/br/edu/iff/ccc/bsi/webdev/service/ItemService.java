@@ -25,15 +25,15 @@ public class ItemService {
 	@Autowired
 	private HqRepository hqRepository;
 
-	public boolean save(Item item, Map<String,String> itemMap) {
+	public Item save(Item item, Map<String,String> itemMap) {
 		String opcao = itemMap.get("opcao");
 		
 		if(opcao != null) {
 			if((opcao.compareTo("manga") != 0)&&(opcao.compareTo("hq") != 0)) {
-				return false;
+				return null;
 			}
 		} else {
-			return false;
+			return null;
 		}
 		
 		if(opcao.compareTo("manga") == 0) {
@@ -45,9 +45,9 @@ public class ItemService {
 
 			Manga m = mangaRepository.save(manga);
 			if(m.equals(null)) {
-				return false;
+				return null;
 			} else {
-				return true;
+				return (Item) m;
 			}
 		} 
 		
@@ -61,13 +61,13 @@ public class ItemService {
 			
 			Hq h = hqRepository.save(hQ);
 			if(h.equals(null)) {
-				return false;
+				return null;
 			} else {
-				return true;
+				return (Item) h;
 			}
 		}
 		
-		return true;
+		return null;
 	}
 	
 	public Item consultaItem(String isbn) {
