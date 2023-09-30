@@ -34,9 +34,7 @@ public class Colecao {
 	
 //	 @Schema(description = "Identificador da coleção.", 
 //    example = "1")
-	@OneToOne
-	@JoinColumn(name="fk_pessoa",nullable = false)
-	//@Column(nullable = false)
+	@OneToOne(mappedBy="colecao")
 	private Pessoa pessoa;
 	
 	@ManyToMany

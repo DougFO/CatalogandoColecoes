@@ -34,7 +34,8 @@ public class Pessoa {
 	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
 	
-	@OneToOne(mappedBy="pessoa")
+	@OneToOne
+	@JoinColumn(name="fk_colecao",nullable = true)
 	private Colecao colecao;
 	
 	public Long getID() {
