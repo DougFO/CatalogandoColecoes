@@ -17,4 +17,7 @@ public interface PessoaRepository extends JpaRepository<Pessoa,Long>{
 	
 	@Query(value = "SELECT * FROM PESSOA WHERE cpf = (?1)", nativeQuery =true)
 	Map<String,String> consultaPessoa(String cpf);
+	
+	@Query(value = "SELECT FK_USUARIO FROM PESSOA WHERE CPF LIKE (?1)", nativeQuery =true)
+	long consultaFKUsuario(String cpf);
 }

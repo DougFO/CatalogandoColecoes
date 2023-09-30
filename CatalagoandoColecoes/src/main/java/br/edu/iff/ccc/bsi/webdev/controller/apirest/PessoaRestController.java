@@ -3,6 +3,8 @@ package br.edu.iff.ccc.bsi.webdev.controller.apirest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +41,23 @@ public class PessoaRestController {
 	ResponseEntity<Pessoa> save(Pessoa pessoa, Usuario user, Endereco endereco) {
 		
 		return new ResponseEntity<>(pessoaService.save(user, pessoa, endereco), HttpStatus.CREATED);
+	}
+	
+	
+	
+	@DeleteMapping
+	@Operation(summary = "Excluindo dados de uma pessoa")
+	@ApiResponses({
+    @ApiResponse(responseCode = "200", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Dados da Pessoa Removidos"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	public ResponseEntity<Pessoa> remove(Pessoa pessoa) {
+		
+		return new ResponseEntity<>(pessoaService.remove(pessoa), HttpStatus.OK);
 	}
 
 }

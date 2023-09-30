@@ -30,6 +30,19 @@ public class PessoaService {
 	}
 	
 	
+	public Pessoa remove(Pessoa pessoa) {
+		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));
+		
+		long idUsuario = rep.consultaFKUsuario(pessoa.getCpf());
+		rep.deleteById(id);
+		usuarioService.remove(idUsuario);
+		if(pessoa.equals(null)) {
+			return null;
+		}
+		return pessoa;
+	}
+	
+	
 	public Pessoa consultaPessoa(String cpf) {
 		Map<String,String> pessoaConsultada = rep.consultaPessoa(cpf);
 		Pessoa pessoa = new Pessoa();

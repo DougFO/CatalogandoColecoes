@@ -29,4 +29,8 @@ public class UsuarioService {
 		return usuario;
 	}
 	
+	void remove(long id) {
+		reu.deleteById(id);
+	}
+	
 }
