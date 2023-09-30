@@ -28,7 +28,6 @@ public class PessoaRestController {
 	
 	@PostMapping
 	@Operation(summary = "Cadastrando uma pessoa")
-	//public String save(Pessoa pessoa, Usuario user, Endereco endereco) {
 	@ApiResponses({
     @ApiResponse(responseCode = "201", content = {
         @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
@@ -37,14 +36,7 @@ public class PessoaRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	//Pessoa save(Pessoa pessoa, Usuario user, Endereco endereco) {
 	ResponseEntity<Pessoa> save(Pessoa pessoa, Usuario user, Endereco endereco) {
-		
-//		if(pessoaService.save(user, pessoa, endereco)) {
-//			return "Usuário adicionado! ";
-//		} else {
-//			return "Usuário não adicionado! ";
-//		}
 		
 		return new ResponseEntity<>(pessoaService.save(user, pessoa, endereco), HttpStatus.CREATED);
 	}
