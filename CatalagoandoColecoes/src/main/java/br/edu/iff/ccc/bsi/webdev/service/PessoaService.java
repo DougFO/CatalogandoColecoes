@@ -73,4 +73,21 @@ public class PessoaService {
 		Map<String,String> pessoaConsultada = rep.consultaPessoa(cpf);
 		return Long.parseLong(String.valueOf(pessoaConsultada.get("FK_USUARIO")));
 	}
+	
+	
+	
+	public Pessoa atualizar(Usuario user, Pessoa pessoa, Endereco endereco) {
+		boolean testeUsuario, testePessoa;
+		long idUsuario = rep.consultaFKUsuario(pessoa.getCpf());
+		user.setID(idUsuario);
+		testeUsuario = usuarioService.atualizar(user);
+		pessoa.setUsuario(user);
+		pessoa.setEndereco(endereco);
+		testePessoa = (rep.atualizar(pessoa.getCpf(), pessoa.getNome(), pessoa.getEmail(), pessoa.getEndereco().getCEP(), pessoa.getEndereco().getRua(), pessoa.getEndereco().getNumero(), pessoa.getEndereco().getBairro(), pessoa.getEndereco().getCidade(), pessoa.getEndereco().getEstado()) == 1);
+		if((testeUsuario)&&(testePessoa)) {
+			return pessoa;
+		} else {
+			return null;
+		}
+	}
 }

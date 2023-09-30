@@ -33,4 +33,16 @@ public class UsuarioService {
 		reu.deleteById(id);
 	}
 	
+	boolean atualizar(Usuario user) {
+		System.out.println("ID: "+user.getID());
+		System.out.println("USERNAME: "+user.getUsername());
+		System.out.println("PASSWORD: "+user.getPassword());
+		System.out.println("NIVEL: "+user.getNivel());
+		if(this.reu.atualizar(user.getID(), user.getUsername(), user.getPassword(), user.getNivel()) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }
