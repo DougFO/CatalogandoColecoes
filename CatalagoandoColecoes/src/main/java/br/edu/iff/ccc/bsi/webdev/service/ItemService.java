@@ -43,11 +43,12 @@ public class ItemService {
 			Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao(),item.getValor(),item.getQtd_paginas());
 			manga.setTipo(tipoManga);
 
-			Manga m = mangaRepository.save(manga);
-			if(m.equals(null)) {
-				return null;
+			Manga m = null;
+			if(itemRepository.verificaItem(item.getIsbn()) == null) {
+				m = mangaRepository.save(manga);
+				return m;
 			} else {
-				return (Item) m;
+				System.out.println("Item já está cadastrado!");
 			}
 		} 
 		
@@ -59,12 +60,13 @@ public class ItemService {
 			hQ.setEditoraOriginal(editoraOriginal);
 			hQ.setPersonagemGrupo(personagemGrupo);
 			
-			Hq h = hqRepository.save(hQ);
-			if(h.equals(null)) {
-				return null;
+			Hq h = null;
+			if(itemRepository.verificaItem(item.getIsbn()) == null) {
+				h = hqRepository.save(hQ);
+				return h;
 			} else {
-				return (Item) h;
-			}
+				System.out.println("Item já está cadastrada!");
+			}			
 		}
 		
 		return null;
