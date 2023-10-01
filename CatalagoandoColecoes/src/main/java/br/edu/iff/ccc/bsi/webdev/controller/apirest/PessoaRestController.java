@@ -1,5 +1,7 @@
 package br.edu.iff.ccc.bsi.webdev.controller.apirest;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +10,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.iff.ccc.bsi.webdev.entities.Colecao;
 import br.edu.iff.ccc.bsi.webdev.entities.Endereco;
+import br.edu.iff.ccc.bsi.webdev.entities.Item;
 import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import br.edu.iff.ccc.bsi.webdev.entities.Usuario;
 import br.edu.iff.ccc.bsi.webdev.service.PessoaService;
@@ -76,6 +81,21 @@ public class PessoaRestController {
 	public ResponseEntity<Pessoa> atualizar(Pessoa pessoa, Usuario user, Endereco endereco) {
 		
 		return new ResponseEntity<>(pessoaService.atualizar(user, pessoa, endereco), HttpStatus.OK);
+	}
+	
+	
+	@PostMapping("/Colecao")
+	@Operation(summary = "Cadastrando Coleção de uma pessoa")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Coleção Cadastrada"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Pessoa> criarColecao(Pessoa pessoa, Colecao colecao, Item item, @RequestParam Map<String,String> colecaoCalendar) {		
+		return new ResponseEntity<>(pessoaService.criarColecao(pessoa, colecao, item, colecaoCalendar), HttpStatus.CREATED);
 	}
 
 }

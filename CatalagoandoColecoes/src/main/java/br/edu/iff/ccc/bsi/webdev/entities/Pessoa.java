@@ -36,7 +36,7 @@ public class Pessoa {
 	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_colecao",nullable = true)
 	private Colecao colecao;
 	
@@ -76,6 +76,14 @@ public class Pessoa {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	public Colecao getColecao() {
+		return colecao;
+	}
+	public void setColecao(Colecao colecao) {
+		this.colecao = colecao;
+	}
+	
+	
 	
 	
 }

@@ -24,6 +24,9 @@ public interface PessoaRepository extends JpaRepository<Pessoa,Long>{
 	@Query(value = "SELECT FK_USUARIO FROM PESSOA WHERE CPF LIKE (?1)", nativeQuery =true)
 	long consultaFKUsuario(String cpf);
 	
+	@Query(value = "SELECT FK_COLECAO FROM PESSOA WHERE CPF LIKE (?1)", nativeQuery =true)
+	Long consultaFKColecao(String cpf);
+	
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE PESSOA SET NOME = (?2), EMAIL = (?3), CEP = (?4), RUA = (?5), NUMERO = (?6), BAIRRO = (?7), CIDADE = (?8), ESTADO = (?9) WHERE CPF LIKE (?1)", nativeQuery =true)

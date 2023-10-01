@@ -1,11 +1,17 @@
 package br.edu.iff.ccc.bsi.webdev.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.iff.ccc.bsi.webdev.entities.Colecao;
 import br.edu.iff.ccc.bsi.webdev.entities.Endereco;
+import br.edu.iff.ccc.bsi.webdev.entities.Item;
 import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import br.edu.iff.ccc.bsi.webdev.entities.Usuario;
 import br.edu.iff.ccc.bsi.webdev.repository.PessoaRepository;
@@ -18,6 +24,9 @@ public class PessoaService {
 	
 	@Autowired
 	private UsuarioService usuarioService = new UsuarioService();
+	
+	@Autowired
+	private ItemService itemService = new ItemService();
 	
 	public Pessoa save(Usuario user, Pessoa pessoa, Endereco endereco) {
 		if(rep.consultaIdPessoa(pessoa.getCpf()) == null) {
@@ -92,5 +101,43 @@ public class PessoaService {
 			System.out.println("Pessoa não está cadastrada!");
 		}
 		 return null;
+	}
+	
+	
+	public Pessoa criarColecao(Pessoa pessoa, Colecao colecao, Item item, Map<String,String> colecaoCalendar) {
+		Long idItem = itemService.consultaIdItem(item.getIsbn());
+		
+		String data_inicio = colecaoCalendar.get("calendario");
+		Calendar cal = Calendar.getInstance();
+		try {
+			String data = data_inicio;
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+			
+			cal.setTime(sdf.parse(data));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		colecao.setData_inicio(cal);
+		
+		if(rep.consultaFKColecao(pessoa.getCpf()) == null) {
+			if(rep.consultaIdPessoa(pessoa.getCpf()) != null) {
+				if(itemService.consultaIdItem(item.getIsbn()) != null) {
+					Pessoa p = this.consultaPessoa(pessoa.getCpf());
+					item.setID(idItem);
+					colecao.addItem(item);
+					p.setColecao(colecao);			
+					return rep.saveAndFlush(p);
+				} else {
+					System.out.println("Item não está cadastrado!");
+				}
+			} else {
+				System.out.println("Pessoa não está cadastrada!");
+			}
+		} else {
+			System.out.println("Essa pessoa já tem uma coleção cadastrada!");
+		}
+		
+		return null;
 	}
 }

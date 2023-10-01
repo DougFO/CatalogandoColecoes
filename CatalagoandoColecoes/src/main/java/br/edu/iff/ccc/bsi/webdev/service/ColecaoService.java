@@ -110,7 +110,7 @@ public class ColecaoService {
 			colecao.setData_inicio(cal);
 			
 			Pessoa pessoa = pessoaService.consultaPessoa(cpf);
-			colecao.setPessoa(pessoa);
+//			colecao.setPessoa(pessoa); 01/10/2023
 			
 			List<Item> itensConsultados = this.consultaItens(cpf);
 			for(int i=0;i<itensConsultados.size();i++) {
@@ -181,18 +181,18 @@ public class ColecaoService {
 			colecao.setData_inicio(cal);
 			
 			Pessoa pessoa = pessoaService.consultaPessoa(colecaoMap.get("pessoa"));
-			colecao.setPessoa(pessoa);
+//			colecao.setPessoa(pessoa); 01/10/2023
 			
-			colecao.setID(colecaoRepository.verificaColecao(colecao.getPessoa().getCpf()));
+//			colecao.setID(colecaoRepository.verificaColecao(colecao.getPessoa().getCpf())); 01/10/2023
 			
 			//System.out.println("Cpf Colecao: "+colecao.getPessoa().getCpf());
 			
-			Colecao colecaoConsultada = this.consultaColecao(colecao.getPessoa().getCpf());
+//			Colecao colecaoConsultada = this.consultaColecao(colecao.getPessoa().getCpf()); 01/10/2023
 			
-			List<Item> itens = colecaoConsultada.getItens();
-			for(int i=0;i<itens.size();i++) {
-				colecao.addItem(itens.get(i));
-			}
+//			List<Item> itens = colecaoConsultada.getItens(); 01/10/2023
+//			for(int i=0;i<itens.size();i++) {
+//				colecao.addItem(itens.get(i));
+//			}
 			
 			Colecao colecaoVerifica = colecaoRepository.saveAndFlush(colecao);
 			if(colecaoVerifica == null) {
