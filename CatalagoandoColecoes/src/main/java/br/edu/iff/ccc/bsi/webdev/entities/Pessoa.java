@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

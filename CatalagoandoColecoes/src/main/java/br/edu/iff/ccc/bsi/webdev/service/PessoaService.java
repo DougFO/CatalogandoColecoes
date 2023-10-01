@@ -77,6 +77,7 @@ public class PessoaService {
 	public Pessoa atualizar(Usuario user, Pessoa pessoa, Endereco endereco) {
 		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));
 		pessoa.setID(id);
+		user.setID(this.consultaIDUsuario(pessoa.getCpf()));
 		pessoa.setUsuario(user);
 		pessoa.setEndereco(endereco);
 		return rep.saveAndFlush(pessoa);
