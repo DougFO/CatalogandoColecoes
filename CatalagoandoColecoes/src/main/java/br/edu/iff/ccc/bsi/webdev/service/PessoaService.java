@@ -20,7 +20,7 @@ public class PessoaService {
 	private UsuarioService usuarioService = new UsuarioService();
 	
 	public Pessoa save(Usuario user, Pessoa pessoa, Endereco endereco) {
-		pessoa.setUsuario(usuarioService.save(user));
+		pessoa.setUsuario(user);
 		pessoa.setEndereco(endereco);
 		Pessoa p = rep.save(pessoa);
 		if(p.equals(null)) {
@@ -31,11 +31,9 @@ public class PessoaService {
 	
 	
 	public Pessoa remove(Pessoa pessoa) {
-		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));
 		
-		long idUsuario = rep.consultaFKUsuario(pessoa.getCpf());
+		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));		
 		rep.deleteById(id);
-		usuarioService.remove(idUsuario);
 		if(pessoa.equals(null)) {
 			return null;
 		}
@@ -77,17 +75,10 @@ public class PessoaService {
 	
 	
 	public Pessoa atualizar(Usuario user, Pessoa pessoa, Endereco endereco) {
-		boolean testeUsuario, testePessoa;
-		long idUsuario = rep.consultaFKUsuario(pessoa.getCpf());
-		user.setID(idUsuario);
-		testeUsuario = usuarioService.atualizar(user);
+		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));
+		pessoa.setID(id);
 		pessoa.setUsuario(user);
 		pessoa.setEndereco(endereco);
-		testePessoa = (rep.atualizar(pessoa.getCpf(), pessoa.getNome(), pessoa.getEmail(), pessoa.getEndereco().getCEP(), pessoa.getEndereco().getRua(), pessoa.getEndereco().getNumero(), pessoa.getEndereco().getBairro(), pessoa.getEndereco().getCidade(), pessoa.getEndereco().getEstado()) == 1);
-		if((testeUsuario)&&(testePessoa)) {
-			return pessoa;
-		} else {
-			return null;
-		}
+		return rep.saveAndFlush(pessoa);
 	}
 }
