@@ -14,10 +14,11 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa,Long>{
 
-	@Query(value = "SELECT ID FROM PESSOA WHERE cpf = (?1)", nativeQuery =true)
-	String consultaIdPessoa(String cpf);
+	@Query(value = "SELECT ID FROM PESSOA WHERE cpf LIKE (?1)", nativeQuery =true)
+//	String consultaIdPessoa(String cpf);
+	Long consultaIdPessoa(String cpf);
 	
-	@Query(value = "SELECT * FROM PESSOA WHERE cpf = (?1)", nativeQuery =true)
+	@Query(value = "SELECT * FROM PESSOA WHERE cpf LIKE (?1)", nativeQuery =true)
 	Map<String,String> consultaPessoa(String cpf);
 	
 	@Query(value = "SELECT FK_USUARIO FROM PESSOA WHERE CPF LIKE (?1)", nativeQuery =true)

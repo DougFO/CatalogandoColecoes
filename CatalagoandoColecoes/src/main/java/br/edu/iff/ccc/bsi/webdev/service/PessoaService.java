@@ -20,24 +20,29 @@ public class PessoaService {
 	private UsuarioService usuarioService = new UsuarioService();
 	
 	public Pessoa save(Usuario user, Pessoa pessoa, Endereco endereco) {
-		pessoa.setUsuario(user);
-		pessoa.setEndereco(endereco);
-		Pessoa p = rep.save(pessoa);
-		if(p.equals(null)) {
-			return null;
+		if(rep.consultaIdPessoa(pessoa.getCpf()) == null) {
+			pessoa.setUsuario(user);
+			pessoa.setEndereco(endereco);
+			Pessoa p = rep.save(pessoa);
+			return p;
+		} else {
+			System.out.println("Pessoa já está cadastrada!");
 		}
-		return p;
+				
+		return null;
 	}
 	
 	
 	public Pessoa remove(Pessoa pessoa) {
 		
-		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));		
-		rep.deleteById(id);
-		if(pessoa.equals(null)) {
-			return null;
-		}
-		return pessoa;
+		if(rep.consultaIdPessoa(pessoa.getCpf()) != null) {
+			long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));		
+			rep.deleteById(id);
+			return pessoa;
+		} else {
+			System.out.println("Pessoa não está cadastrada!");
+		}	
+		return null;
 	}
 	
 	
@@ -75,11 +80,17 @@ public class PessoaService {
 	
 	
 	public Pessoa atualizar(Usuario user, Pessoa pessoa, Endereco endereco) {
-		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));
-		pessoa.setID(id);
-		user.setID(this.consultaIDUsuario(pessoa.getCpf()));
-		pessoa.setUsuario(user);
-		pessoa.setEndereco(endereco);
-		return rep.saveAndFlush(pessoa);
+		if(rep.consultaIdPessoa(pessoa.getCpf()) != null) {
+	//		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));
+			Long id = rep.consultaIdPessoa(pessoa.getCpf());
+			pessoa.setID(id);
+			user.setID(this.consultaIDUsuario(pessoa.getCpf()));
+			pessoa.setUsuario(user);
+			pessoa.setEndereco(endereco);
+			return rep.saveAndFlush(pessoa);
+		} else {
+			System.out.println("Pessoa não está cadastrada!");
+		}
+		 return null;
 	}
 }
