@@ -11,10 +11,10 @@ import br.edu.iff.ccc.bsi.webdev.entities.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item,Long>{
 
-	@Query(value = "SELECT ID FROM ITEM WHERE isbn = (?1)", nativeQuery =true)
-	Map<String,String> consultaIdItem(String isbn);
+	@Query(value = "SELECT ID FROM ITEM WHERE isbn LIKE (?1)", nativeQuery =true)
+	Long consultaIdItem(String isbn);
 	
-	@Query(value = "SELECT * FROM ITEM WHERE isbn = (?1)", nativeQuery =true)
+	@Query(value = "SELECT * FROM ITEM WHERE isbn LIKE (?1)", nativeQuery =true)
 	Map<String,String> consultaItem(String isbn);
 	
 	@Query(value = "SELECT * FROM ITEM WHERE id LIKE (?1)", nativeQuery =true)

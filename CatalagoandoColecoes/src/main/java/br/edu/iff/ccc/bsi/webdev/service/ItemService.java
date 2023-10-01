@@ -111,9 +111,8 @@ public class ItemService {
 	}
 	
 	public Long consultaIdItem(String isbn) {
-		if(itemRepository.consultaIdItem(isbn).get("ID") != null) {
-			Long IdItemBD = (Long.parseLong(String.valueOf(itemRepository.consultaIdItem(isbn).get("ID"))));
-			return IdItemBD;
+		if(itemRepository.consultaIdItem(isbn) != null) {
+			return itemRepository.consultaIdItem(isbn);
 		}	else {
 			return null;
 		}
@@ -125,6 +124,53 @@ public class ItemService {
 		} else {
 			return true;
 		}
+	}
+	
+	
+	public Item atualizar(Item item, Map<String,String>itemMap) {
+		String opcao = itemMap.get("opcao");
+		Long idItem = itemRepository.consultaIdItem(item.getIsbn());
+		item.setID(idItem);
+		if(opcao != null) {
+			if((opcao.compareTo("manga") != 0)&&(opcao.compareTo("hq") != 0)) {
+				return null;
+			}
+		} else {
+			return null;
+		}
+		
+		if(opcao.compareTo("manga") == 0) {
+			int tipo = Integer.parseInt(itemMap.get("tipo"));
+			TipoManga tipoManga;		
+			tipoManga = TipoManga.toEnum(tipo);
+			Manga manga = new Manga(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao(),item.getValor(),item.getQtd_paginas());
+			manga.setTipo(tipoManga);
+			manga.setID(idItem);
+			Manga m = mangaRepository.saveAndFlush(manga);
+			if(m.equals(null)) {
+				return null;
+			} else {
+				return (Item) m;
+			}
+		} 
+		
+		if(opcao.compareTo("hq") == 0) {
+			String editoraOriginal = itemMap.get("editoraOriginal");
+			String personagemGrupo = itemMap.get("personagemGrupo");
+			
+			Hq hQ = new Hq(item.getIsbn(),item.getTitulo(),item.getVolume(),item.getAutor(),item.getDesenhista(),item.getGenero(),item.getEditoraNacional(),item.getObservacao(),item.getValor(),item.getQtd_paginas());
+			hQ.setEditoraOriginal(editoraOriginal);
+			hQ.setPersonagemGrupo(personagemGrupo);
+			hQ.setID(idItem);
+			Hq h = hqRepository.saveAndFlush(hQ);
+			if(h.equals(null)) {
+				return null;
+			} else {
+				return (Item) h;
+			}
+		}
+		
+		return null;
 	}
 
 

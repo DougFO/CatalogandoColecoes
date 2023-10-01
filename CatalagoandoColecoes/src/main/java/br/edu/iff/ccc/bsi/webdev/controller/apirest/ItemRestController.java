@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,4 +45,21 @@ public class ItemRestController {
 
 		return new ResponseEntity<>(itemService.save(item,itemMap), HttpStatus.CREATED);		
 	}
+	
+	
+	@PutMapping
+	@Operation(summary = "Atualizando dados de um Item")
+	@ApiResponses({
+    @ApiResponse(responseCode = "200", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Dados do Item Atualizada"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Item> atualizar(Item item, @RequestParam Map<String,String> itemMap) {
+
+			
+			return new ResponseEntity<>(itemService.atualizar(item,itemMap), HttpStatus.CREATED);			
+		}
 }
