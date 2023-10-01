@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -30,7 +31,7 @@ public class Pessoa {
 	@Embedded
 	private Endereco endereco;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_usuario")
 	private Usuario usuario;
 	
