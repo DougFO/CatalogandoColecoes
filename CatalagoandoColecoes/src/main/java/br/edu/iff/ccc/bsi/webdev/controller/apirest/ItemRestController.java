@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,4 +63,22 @@ public class ItemRestController {
 			
 			return new ResponseEntity<>(itemService.atualizar(item,itemMap), HttpStatus.CREATED);			
 		}
+	
+	
+	
+	@DeleteMapping
+	@Operation(summary = "Excluindo dados de um Item")
+	@ApiResponses({
+    @ApiResponse(responseCode = "200", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Dados da Item Removidos"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Item> remover(Item item) {
+
+		
+		return new ResponseEntity<>(itemService.remover(item), HttpStatus.CREATED);			
+	}
 }

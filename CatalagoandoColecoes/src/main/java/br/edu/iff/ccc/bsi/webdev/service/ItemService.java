@@ -171,6 +171,19 @@ public class ItemService {
 
 		return null;
 	}
+	
+	
+	public Item remover(Item item) {
+		if(itemRepository.verificaItem(item.getIsbn()) != null) {
+			Long idItem = itemRepository.consultaIdItem(item.getIsbn());
+			item.setID(idItem);
+			itemRepository.deleteById(idItem);
+			return item;
+		} else {
+			System.out.println("O Item não está cadastrado!");
+		}
+		return null;
+	}
 
 
 }
