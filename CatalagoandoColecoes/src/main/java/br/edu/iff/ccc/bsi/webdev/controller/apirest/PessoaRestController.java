@@ -143,4 +143,20 @@ public class PessoaRestController {
 	ResponseEntity<Pessoa> addItem(@PathVariable("cpf") String cpf, @PathVariable("isbn") String isbn) {		
 		return new ResponseEntity<>(pessoaService.addItem(cpf, isbn), HttpStatus.CREATED);
 	}
+	
+	
+	
+	@DeleteMapping("/{cpf}/Colecao/Item/{isbn}")
+	@Operation(summary = "Removendo Item da Coleção de uma pessoa")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Item removido da coleção"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Pessoa> removeItem(@PathVariable("cpf") String cpf, @PathVariable("isbn") String isbn) {		
+		return new ResponseEntity<>(pessoaService.removeItem(cpf, isbn), HttpStatus.CREATED);
+	}
 }

@@ -251,4 +251,47 @@ public class PessoaService {
 		}
 		return null;
 	}
+	
+	
+	
+	public Pessoa removeItem(String cpf, String isbn) {
+		String cpfPessoa = cpf;
+		if(rep.consultaIdPessoa(cpfPessoa) != null) {
+			if(rep.consultaFKColecao(cpfPessoa) != null) {
+				Pessoa p = this.consultaPessoa(cpfPessoa);
+				Colecao colecao = colecaoService.consultaColecao(cpfPessoa);
+				boolean verifica = false; 
+				
+				ArrayList<Item> itens = new ArrayList<Item>();
+				itens = (ArrayList<Item>) colecao.getItens();
+				
+				for(int i=0;i<itens.size();i++) {
+					if(itens.get(i).getIsbn().compareTo(isbn) == 0) {
+						verifica = true;
+					}
+				}
+				
+				Item item = itemService.consultaItem(isbn);
+				if(item != null) {
+					if(verifica == true) {					
+							colecao.removeItem(item);
+							p.setColecao(colecao);
+							rep.saveAndFlush(p);
+							return p;					
+					} else {
+						System.out.println("O item não está cadastrado na coleção!");
+						return null;					
+					}
+				} else {
+					System.out.println("O item não está cadastrado no sistema!");
+				}	
+				
+			} else {
+				System.out.println("Essa pessoa não tem uma coleção cadastrada!");
+			}
+		} else {
+			System.out.println("Pessoa não está cadastrada!");			
+		}
+		return null;
+	}
 }
