@@ -92,12 +92,12 @@ public class PessoaService {
 	
 	
 	
-	public Pessoa atualizar(Usuario user, Pessoa pessoa, Endereco endereco) {
-		if(rep.consultaIdPessoa(pessoa.getCpf()) != null) {
+	public Pessoa atualizar(Usuario user, Pessoa pessoa, Endereco endereco, String cpf) {
+		if(rep.consultaIdPessoa(cpf) != null) {
 	//		long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));
-			Long id = rep.consultaIdPessoa(pessoa.getCpf());
+			Long id = rep.consultaIdPessoa(cpf);
 			pessoa.setID(id);
-			user.setID(this.consultaIDUsuario(pessoa.getCpf()));
+			user.setID(this.consultaIDUsuario(cpf));
 			pessoa.setUsuario(user);
 			pessoa.setEndereco(endereco);
 			return rep.saveAndFlush(pessoa);

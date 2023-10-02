@@ -69,7 +69,7 @@ public class PessoaRestController {
 	
 	
 	
-	@PutMapping
+	@PutMapping("/{cpf}")
 	@Operation(summary = "Atualizando dados de uma pessoa")
 	@ApiResponses({
     @ApiResponse(responseCode = "200", content = {
@@ -79,9 +79,9 @@ public class PessoaRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	public ResponseEntity<Pessoa> atualizar(Pessoa pessoa, Usuario user, Endereco endereco) {
+	public ResponseEntity<Pessoa> atualizar(@PathVariable("cpf") String cpf,Pessoa pessoa, Usuario user, Endereco endereco) {
 		
-		return new ResponseEntity<>(pessoaService.atualizar(user, pessoa, endereco), HttpStatus.OK);
+		return new ResponseEntity<>(pessoaService.atualizar(user, pessoa, endereco, cpf), HttpStatus.OK);
 	}
 	
 	
