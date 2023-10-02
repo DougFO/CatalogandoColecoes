@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +52,7 @@ public class PessoaRestController {
 	
 	
 	
-	@DeleteMapping
+	@DeleteMapping("/{cpf}")
 	@Operation(summary = "Excluindo dados de uma pessoa")
 	@ApiResponses({
     @ApiResponse(responseCode = "200", content = {
@@ -61,9 +62,9 @@ public class PessoaRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	public ResponseEntity<Pessoa> remove(Pessoa pessoa) {
+	public ResponseEntity<Pessoa> remove(@PathVariable("cpf") String cpf) {
 		
-		return new ResponseEntity<>(pessoaService.remove(pessoa), HttpStatus.OK);
+		return new ResponseEntity<>(pessoaService.remove(cpf), HttpStatus.OK);
 	}
 	
 	

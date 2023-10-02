@@ -45,11 +45,12 @@ public class PessoaService {
 	}
 	
 	
-	public Pessoa remove(Pessoa pessoa) {
+	public Pessoa remove(String cpf) {
 		
-		if(rep.consultaIdPessoa(pessoa.getCpf()) != null) {
-			long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(pessoa.getCpf())));		
-			rep.deleteById(id);
+		if(rep.consultaIdPessoa(cpf) != null) {
+			long id = Long.parseLong(String.valueOf(rep.consultaIdPessoa(cpf)));
+			Pessoa pessoa = this.consultaPessoa(cpf);
+			rep.deleteById(id);			
 			return pessoa;
 		} else {
 			System.out.println("Pessoa não está cadastrada!");
