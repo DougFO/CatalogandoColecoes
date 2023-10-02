@@ -27,7 +27,7 @@ public class Colecao {
 //	 @Schema(description = "Identificador da coleção.", 
 //	            example = "1")
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ID;
 	
 //	private Pessoa pessoaExemplo = new Pessoa();

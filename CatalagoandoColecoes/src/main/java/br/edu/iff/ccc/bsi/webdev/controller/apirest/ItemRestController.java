@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +67,7 @@ public class ItemRestController {
 	
 	
 	
-	@DeleteMapping
+	@DeleteMapping("/{isbn}")
 	@Operation(summary = "Excluindo dados de um Item")
 	@ApiResponses({
     @ApiResponse(responseCode = "200", content = {
@@ -76,9 +77,9 @@ public class ItemRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	ResponseEntity<Item> remover(Item item) {
+	ResponseEntity<Item> remover(@PathVariable("isbn") String isbn) {
 
 		
-		return new ResponseEntity<>(itemService.remover(item), HttpStatus.CREATED);			
+		return new ResponseEntity<>(itemService.remover(isbn), HttpStatus.CREATED);			
 	}
 }

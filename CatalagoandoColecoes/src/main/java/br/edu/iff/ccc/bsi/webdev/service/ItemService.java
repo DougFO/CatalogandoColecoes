@@ -173,10 +173,10 @@ public class ItemService {
 	}
 	
 	
-	public Item remover(Item item) {
-		if(itemRepository.verificaItem(item.getIsbn()) != null) {
-			Long idItem = itemRepository.consultaIdItem(item.getIsbn());
-			item.setID(idItem);
+	public Item remover(String isbn) {
+		if(itemRepository.verificaItem(isbn) != null) {
+			Long idItem = itemRepository.consultaIdItem(isbn);
+			Item item = this.consultaItem(isbn);
 			itemRepository.deleteById(idItem);
 			return item;
 		} else {
