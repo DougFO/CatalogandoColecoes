@@ -104,22 +104,27 @@ public class PessoaService {
 	}
 	
 	
-	public Pessoa criarColecao(Pessoa pessoa, Colecao colecao, Item item, Map<String,String> colecaoCalendar) {
+	public Pessoa criarColecao(Pessoa pessoa, Item item, Map<String,String> dadosColecao) {
+		Colecao colecao = new Colecao();
+		colecao.setNome(dadosColecao.get("nome"));
+		colecao.setObservacao(dadosColecao.get("observacao"));
 		Long idItem = itemService.consultaIdItem(item.getIsbn());
-		
-		String data_inicio = colecaoCalendar.get("calendario");
-		Calendar cal = Calendar.getInstance();
-		try {
-			String data = data_inicio;
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+		System.out.println("Observacao C: "+colecao.getObservacao());
+		if(dadosColecao.get("calendario") != null) {
+			String data_inicio = dadosColecao.get("calendario");
+			Calendar cal = Calendar.getInstance();
+			try {
+				String data = data_inicio;
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+				
+				cal.setTime(sdf.parse(data));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			
-			cal.setTime(sdf.parse(data));
-		} catch (ParseException e) {
-			e.printStackTrace();
+			colecao.setData_inicio(cal);		
 		}
-		
-		colecao.setData_inicio(cal);
-		
+			
 		if(rep.consultaFKColecao(pessoa.getCpf()) == null) {
 			if(rep.consultaIdPessoa(pessoa.getCpf()) != null) {
 				if(itemService.consultaIdItem(item.getIsbn()) != null) {

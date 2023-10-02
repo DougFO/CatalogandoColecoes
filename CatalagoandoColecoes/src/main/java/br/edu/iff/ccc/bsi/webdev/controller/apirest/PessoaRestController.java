@@ -94,8 +94,8 @@ public class PessoaRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	ResponseEntity<Pessoa> criarColecao(Pessoa pessoa, Colecao colecao, Item item, @RequestParam Map<String,String> colecaoCalendar) {		
-		return new ResponseEntity<>(pessoaService.criarColecao(pessoa, colecao, item, colecaoCalendar), HttpStatus.CREATED);
+	ResponseEntity<Pessoa> criarColecao(Pessoa pessoa, Item item, @RequestParam Map<String,String> dadosColecao) {		
+		return new ResponseEntity<>(pessoaService.criarColecao(pessoa, item, dadosColecao), HttpStatus.CREATED);
 	}
 
 }

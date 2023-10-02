@@ -66,16 +66,16 @@ public class ColecaoService {
 	    }
 	}
 	
-	public Long verificaColecao(String cpf) {
-		if(colecaoRepository.verificaColecao(cpf) != null) {
-			return (colecaoRepository.verificaColecao(cpf));
-		} else {
-			return null;
-		}
-	}
+//	public Long verificaColecao(String cpf) {
+//		if(colecaoRepository.verificaColecao(cpf) != null) {
+//			return (colecaoRepository.verificaColecao(cpf));
+//		} else {
+//			return null;
+//		}
+//	}
 	
 	public List<Item> consultaItens(String cpf) {
-		Long id = this.verificaColecao(cpf);
+		Long id = colecaoRepository.verificaColecao(cpf);
 		if(id != null) {
 			List<Long> itensColecao = colecaoRepository.consultaItensColecao(id);
 			List<Item> itens = new ArrayList<Item>();
@@ -109,7 +109,7 @@ public class ColecaoService {
 			}
 			colecao.setData_inicio(cal);
 			
-			Pessoa pessoa = pessoaService.consultaPessoa(cpf);
+//			Pessoa pessoa = pessoaService.consultaPessoa(cpf);
 //			colecao.setPessoa(pessoa); 01/10/2023
 			
 			List<Item> itensConsultados = this.consultaItens(cpf);

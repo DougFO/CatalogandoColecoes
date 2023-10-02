@@ -14,10 +14,10 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface ColecaoRepository extends JpaRepository<Colecao,Long>{
 
-	@Query(value = "SELECT C.* FROM COLECAO AS C JOIN PESSOA AS P ON C.FK_PESSOA = P.ID WHERE P.CPF LIKE (?1)", nativeQuery =true)
+	@Query(value = "SELECT C.* FROM COLECAO AS C JOIN PESSOA AS P ON C.ID = P.FK_COLECAO WHERE P.CPF LIKE (?1)", nativeQuery =true)
 	Map<String,String> consultaColecao(String cpf);
 	
-	@Query(value = "SELECT C.ID FROM COLECAO AS C JOIN PESSOA AS P ON C.FK_PESSOA = P.ID WHERE P.CPF LIKE (?1)", nativeQuery =true)
+	@Query(value = "SELECT C.ID FROM COLECAO AS C JOIN PESSOA AS P ON C.ID = P.FK_COLECAO WHERE P.CPF LIKE (?1)", nativeQuery =true)
 	Long verificaColecao(String cpf);
 	
 	@Transactional
