@@ -2,6 +2,7 @@ package br.edu.iff.ccc.bsi.webdev.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Map;
@@ -206,6 +207,48 @@ public class PessoaService {
 			System.out.println("Pessoa não está cadastrada!");			
 		}
 		
+		return null;
+	}
+	
+	
+	public Pessoa addItem(String cpf, String isbn) {
+		String cpfPessoa = cpf;
+		if(rep.consultaIdPessoa(cpfPessoa) != null) {
+			if(rep.consultaFKColecao(cpfPessoa) != null) {
+				Pessoa p = this.consultaPessoa(cpfPessoa);
+				Colecao colecao = colecaoService.consultaColecao(cpfPessoa);
+				boolean verifica = false; 
+				
+				ArrayList<Item> itens = new ArrayList<Item>();
+				itens = (ArrayList<Item>) colecao.getItens();
+				
+				for(int i=0;i<itens.size();i++) {
+					if(itens.get(i).getIsbn().compareTo(isbn) == 0) {
+						verifica = true;
+					}
+				}
+				
+				if(verifica == false) {
+					Item item = itemService.consultaItem(isbn);
+					if(item != null) {
+						colecao.addItem(item);
+						p.setColecao(colecao);
+						rep.saveAndFlush(p);
+						return p;
+					} else {
+						System.out.println("O item não está cadastrado no sistema!");
+					}
+				} else {
+					System.out.println("O item já está cadastrado na coleção!");
+					return null;					
+				}
+				
+			} else {
+				System.out.println("Essa pessoa não tem uma coleção cadastrada!");
+			}
+		} else {
+			System.out.println("Pessoa não está cadastrada!");			
+		}
 		return null;
 	}
 }
