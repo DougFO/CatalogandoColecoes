@@ -149,15 +149,15 @@ public class ColecaoRestController {
 		}
 	}
 	
-	@DeleteMapping
-	@ResponseBody
-	@Operation(summary = "Deleta uma coleção")
-	public String removeColecao(@RequestParam Map<String,String> colecaoMap) {
-		String cpfPessoa = colecaoMap.get("pessoa");
-		if(colecaoService.removeColecao(cpfPessoa)) {
-			return "Coleção removida!";
-		} else {
-			return "Colecão não removida!";
-		}
-	}
+//	@DeleteMapping
+//	@ResponseBody
+//	@Operation(summary = "Deleta uma coleção")
+//	public String removeColecao(@RequestParam Map<String,String> colecaoMap) {
+//		String cpfPessoa = colecaoMap.get("pessoa");
+//		if(colecaoService.removeColecao(cpfPessoa)) {
+//			return "Coleção removida!";
+//		} else {
+//			return "Colecão não removida!";
+//		}
+//	}
 }

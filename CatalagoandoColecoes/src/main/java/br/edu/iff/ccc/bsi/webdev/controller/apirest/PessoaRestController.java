@@ -112,4 +112,19 @@ public class PessoaRestController {
 	ResponseEntity<Pessoa> atualizarColecao(Colecao colecao, @RequestParam Map<String,String> dadosAtualizacao) {		
 		return new ResponseEntity<>(pessoaService.atualizarColecao(colecao, dadosAtualizacao), HttpStatus.CREATED);
 	}
+	
+	
+	@DeleteMapping("/Colecao")
+	@Operation(summary = "Exclusão da Coleção de uma pessoa")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Coleção removida"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Pessoa> removerColecao(Pessoa pessoa) {		
+		return new ResponseEntity<>(pessoaService.removerColecao(pessoa), HttpStatus.CREATED);
+	}
 }

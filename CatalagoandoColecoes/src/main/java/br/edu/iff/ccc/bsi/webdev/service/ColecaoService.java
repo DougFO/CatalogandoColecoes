@@ -238,16 +238,10 @@ public class ColecaoService {
 		}
 	}
 	
-	public boolean removeColecao(String cpf) {
-		if(colecaoRepository.verificaColecao(cpf) != null) {
-			Colecao colecao = this.consultaColecao(cpf);
-			colecaoRepository.delete(colecao);
-			
-			return true;
-		} else {
-			return false;
-		}			
+	public void removeColecao(Colecao colecao) {
+		colecaoRepository.deleteById(colecao.getID());
 	}
+
 
 
 }

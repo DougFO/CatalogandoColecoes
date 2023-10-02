@@ -186,4 +186,25 @@ public class PessoaService {
 		
 		return null;
 	}
+	
+	
+	public Pessoa removerColecao(Pessoa pessoa) {
+		String cpf = pessoa.getCpf();
+		if(rep.consultaIdPessoa(cpf) != null) {
+			if(rep.consultaFKColecao(cpf) != null) {
+				Pessoa p = this.consultaPessoa(pessoa.getCpf());
+				Colecao colecao = colecaoService.consultaColecao(cpf);
+				p.setColecao(null);
+				rep.saveAndFlush(p);
+				colecaoService.removeColecao(colecao);
+				return p;
+			} else {
+				System.out.println("Essa pessoa não tem uma coleção cadastrada!");
+			}
+		} else {
+			System.out.println("Pessoa não está cadastrada!");			
+		}
+		
+		return null;
+	}
 }
