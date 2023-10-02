@@ -151,11 +151,11 @@ public class PessoaService {
 	}
 	
 	
-	public Pessoa atualizarColecao(Colecao colecao, Map<String,String> dadosAtualizacao) {
-		String cpf = dadosAtualizacao.get("cpf");
-		if(rep.consultaIdPessoa(cpf) != null) {
-			if(rep.consultaFKColecao(cpf) != null) {
-				Colecao c = colecaoService.consultaColecao(cpf);
+	public Pessoa atualizarColecao(String cpf, Colecao colecao, Map<String,String> dadosAtualizacao) {
+		String cpfPessoa = cpf;
+		if(rep.consultaIdPessoa(cpfPessoa) != null) {
+			if(rep.consultaFKColecao(cpfPessoa) != null) {
+				Colecao c = colecaoService.consultaColecao(cpfPessoa);
 				c.setNome(colecao.getNome());
 				c.setObservacao(colecao.getObservacao());
 				
@@ -174,7 +174,7 @@ public class PessoaService {
 					c.setData_inicio(cal);
 				}						
 				
-				Pessoa pessoa = this.consultaPessoa(cpf);
+				Pessoa pessoa = this.consultaPessoa(cpfPessoa);
 				pessoa.setColecao(c);
 				
 				return rep.saveAndFlush(pessoa);

@@ -100,7 +100,7 @@ public class PessoaRestController {
 	}
 
 	
-	@PutMapping("/Colecao")
+	@PutMapping("/{cpf}/Colecao")
 	@Operation(summary = "Atualização Coleção de uma pessoa")
 	@ApiResponses({
     @ApiResponse(responseCode = "201", content = {
@@ -110,8 +110,8 @@ public class PessoaRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	ResponseEntity<Pessoa> atualizarColecao(Colecao colecao, @RequestParam Map<String,String> dadosAtualizacao) {		
-		return new ResponseEntity<>(pessoaService.atualizarColecao(colecao, dadosAtualizacao), HttpStatus.CREATED);
+	ResponseEntity<Pessoa> atualizarColecao(@PathVariable("cpf") String cpf,Colecao colecao, @RequestParam Map<String,String> dadosAtualizacao) {		
+		return new ResponseEntity<>(pessoaService.atualizarColecao(cpf,colecao, dadosAtualizacao), HttpStatus.CREATED);
 	}
 	
 	
