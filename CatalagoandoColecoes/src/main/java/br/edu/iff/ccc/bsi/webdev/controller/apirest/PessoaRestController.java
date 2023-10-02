@@ -115,7 +115,7 @@ public class PessoaRestController {
 	}
 	
 	
-	@DeleteMapping("/Colecao")
+	@DeleteMapping("/{cpf}/Colecao")
 	@Operation(summary = "Exclusão da Coleção de uma pessoa")
 	@ApiResponses({
     @ApiResponse(responseCode = "201", content = {
@@ -125,7 +125,7 @@ public class PessoaRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	ResponseEntity<Pessoa> removerColecao(Pessoa pessoa) {		
-		return new ResponseEntity<>(pessoaService.removerColecao(pessoa), HttpStatus.CREATED);
+	ResponseEntity<Pessoa> removerColecao(@PathVariable("cpf") String cpf) {		
+		return new ResponseEntity<>(pessoaService.removerColecao(cpf), HttpStatus.CREATED);
 	}
 }

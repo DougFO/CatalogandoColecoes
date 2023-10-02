@@ -189,12 +189,12 @@ public class PessoaService {
 	}
 	
 	
-	public Pessoa removerColecao(Pessoa pessoa) {
-		String cpf = pessoa.getCpf();
-		if(rep.consultaIdPessoa(cpf) != null) {
-			if(rep.consultaFKColecao(cpf) != null) {
-				Pessoa p = this.consultaPessoa(pessoa.getCpf());
-				Colecao colecao = colecaoService.consultaColecao(cpf);
+	public Pessoa removerColecao(String cpf) {
+		String cpfPessoa = cpf;
+		if(rep.consultaIdPessoa(cpfPessoa) != null) {
+			if(rep.consultaFKColecao(cpfPessoa) != null) {
+				Pessoa p = this.consultaPessoa(cpfPessoa);
+				Colecao colecao = colecaoService.consultaColecao(cpfPessoa);
 				p.setColecao(null);
 				rep.saveAndFlush(p);
 				colecaoService.removeColecao(colecao);
