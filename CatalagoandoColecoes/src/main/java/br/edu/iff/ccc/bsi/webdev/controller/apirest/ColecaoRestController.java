@@ -41,38 +41,7 @@ public class ColecaoRestController {
 	@Autowired
 	ItemService itemService = new ItemService();
 
-	@PostMapping(path = "")
-	//@ResponseBody
-	@Operation(summary = "Cadastrando uma coleção")
-//	@ApiResponses({
-//	    @ApiResponse(responseCode = "201", content = {
-//	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
-//	    }, description = "Coleção Cadastrada"),
-//	    @ApiResponse(responseCode = "500", content = {
-//	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
-//	    }, description = "Internal server error")
-//	})
-	//public String save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
-	//public ResponseEntity<Colecao> save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
-	public Colecao save(@RequestParam Map<String,String> colecaoMap) throws ParseException {
-		
-		String cpfPessoa = colecaoMap.get("pessoa");
-		String isbnItem = colecaoMap.get("item");
-		String nome = colecaoMap.get("nome");
-		String obs = colecaoMap.get("observacao");
-		String data_inicio = colecaoMap.get("data_inicio");
 
-			
-//		if(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem)) {
-//			return "Coleção adicionada!";			
-//		} else {
-//			return "Coleção não adicionada!";
-//		}
-		
-		return colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem);
-		
-		//return new ResponseEntity<>(colecaoService.save(nome, obs, data_inicio, cpfPessoa, isbnItem), HttpStatus.CREATED);
-	}
 	
 	@GetMapping("/{cpf}")
 	@ResponseBody
@@ -129,16 +98,16 @@ public class ColecaoRestController {
 		return colecaoService.consultaColecoes();
 	}
 	
-	@PutMapping
-	@ResponseBody
-	@Operation(summary = "Atualizando uma coleção")
-	public String atualizaColecao(@RequestParam Map<String,String> colecaoMap) {
-		if(colecaoService.atualizaColecao(colecaoMap)) {
-			return "Colecação atualizada!";
-		} else {
-			return "Colecação não atualizada!";
-		}
-	}
+//	@PutMapping 02/10/2023
+//	@ResponseBody
+//	@Operation(summary = "Atualizando uma coleção")
+//	public String atualizaColecao(@RequestParam Map<String,String> colecaoMap) {
+//		if(colecaoService.atualizaColecao(colecaoMap)) {
+//			return "Colecação atualizada!";
+//		} else {
+//			return "Colecação não atualizada!";
+//		}
+//	}
 	
 	@DeleteMapping("/item")
 	@ResponseBody

@@ -98,4 +98,18 @@ public class PessoaRestController {
 		return new ResponseEntity<>(pessoaService.criarColecao(pessoa, item, dadosColecao), HttpStatus.CREATED);
 	}
 
+	
+	@PutMapping("/Colecao")
+	@Operation(summary = "Atualização Coleção de uma pessoa")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Coleção Atualização"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Pessoa> atualizarColecao(Colecao colecao, @RequestParam Map<String,String> dadosAtualizacao) {		
+		return new ResponseEntity<>(pessoaService.atualizarColecao(colecao, dadosAtualizacao), HttpStatus.CREATED);
+	}
 }

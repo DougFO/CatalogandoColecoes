@@ -28,6 +28,9 @@ public class PessoaService {
 	@Autowired
 	private ItemService itemService = new ItemService();
 	
+	@Autowired
+	private ColecaoService colecaoService = new ColecaoService();
+	
 	public Pessoa save(Usuario user, Pessoa pessoa, Endereco endereco) {
 		if(rep.consultaIdPessoa(pessoa.getCpf()) == null) {
 			pessoa.setUsuario(user);
@@ -109,7 +112,7 @@ public class PessoaService {
 		colecao.setNome(dadosColecao.get("nome"));
 		colecao.setObservacao(dadosColecao.get("observacao"));
 		Long idItem = itemService.consultaIdItem(item.getIsbn());
-		System.out.println("Observacao C: "+colecao.getObservacao());
+//		System.out.println("Observacao C: "+colecao.getObservacao());
 		if(dadosColecao.get("calendario") != null) {
 			String data_inicio = dadosColecao.get("calendario");
 			Calendar cal = Calendar.getInstance();
@@ -141,6 +144,44 @@ public class PessoaService {
 			}
 		} else {
 			System.out.println("Essa pessoa já tem uma coleção cadastrada!");
+		}
+		
+		return null;
+	}
+	
+	
+	public Pessoa atualizarColecao(Colecao colecao, Map<String,String> dadosAtualizacao) {
+		String cpf = dadosAtualizacao.get("cpf");
+		if(rep.consultaIdPessoa(cpf) != null) {
+			if(rep.consultaFKColecao(cpf) != null) {
+				Colecao c = colecaoService.consultaColecao(cpf);
+				c.setNome(colecao.getNome());
+				c.setObservacao(colecao.getObservacao());
+				
+				if(dadosAtualizacao.get("calendario") != null) {
+					Calendar cal = Calendar.getInstance();
+					try {
+						String data_inicio = dadosAtualizacao.get("calendario");
+						String data = data_inicio;
+						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
+						
+						cal.setTime(sdf.parse(data));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					
+					c.setData_inicio(cal);
+				}						
+				
+				Pessoa pessoa = this.consultaPessoa(cpf);
+				pessoa.setColecao(c);
+				
+				return rep.saveAndFlush(pessoa);
+			} else {
+				System.out.println("Essa pessoa não tem uma coleção cadastrada!");
+			}
+		} else {
+			System.out.println("Pessoa não está cadastrada!");			
 		}
 		
 		return null;
