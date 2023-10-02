@@ -49,7 +49,7 @@ public class ItemRestController {
 	}
 	
 	
-	@PutMapping
+	@PutMapping("/{isbn}")
 	@Operation(summary = "Atualizando dados de um Item")
 	@ApiResponses({
     @ApiResponse(responseCode = "200", content = {
@@ -59,10 +59,10 @@ public class ItemRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	ResponseEntity<Item> atualizar(Item item, @RequestParam Map<String,String> itemMap) {
+	ResponseEntity<Item> atualizar(@PathVariable("isbn") String isbn, Item item, @RequestParam Map<String,String> itemMap) {
 
 			
-			return new ResponseEntity<>(itemService.atualizar(item,itemMap), HttpStatus.CREATED);			
+			return new ResponseEntity<>(itemService.atualizar(isbn,item,itemMap), HttpStatus.CREATED);			
 		}
 	
 	

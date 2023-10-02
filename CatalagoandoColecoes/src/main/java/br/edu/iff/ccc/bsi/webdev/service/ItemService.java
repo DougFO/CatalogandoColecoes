@@ -121,11 +121,11 @@ public class ItemService {
 	}
 	
 	
-	public Item atualizar(Item item, Map<String,String>itemMap) {
+	public Item atualizar(String isbn, Item item, Map<String,String>itemMap) {
 		String opcao = itemMap.get("opcao");
 		
-		if(itemRepository.verificaItem(item.getIsbn()) != null) {
-				Long idItem = itemRepository.consultaIdItem(item.getIsbn());
+		if(itemRepository.verificaItem(isbn) != null) {
+				Long idItem = itemRepository.consultaIdItem(isbn);
 				item.setID(idItem);
 				if(opcao != null) {
 					if((opcao.compareTo("manga") != 0)&&(opcao.compareTo("hq") != 0)) {
