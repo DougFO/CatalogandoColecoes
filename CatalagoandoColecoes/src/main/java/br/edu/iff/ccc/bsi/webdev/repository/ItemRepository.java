@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.repository;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,7 @@ public interface ItemRepository extends JpaRepository<Item,Long>{
 	
 	@Query(value = "SELECT ID FROM ITEM WHERE isbn LIKE (?1)", nativeQuery =true)
 	Long verificaItem(String isbn);
+	
+	@Query(value = "SELECT * FROM ITEM WHERE TITULO LIKE (?1)", nativeQuery =true)
+	List<Item> consultaItensPorTitulo(String titulo);
 }

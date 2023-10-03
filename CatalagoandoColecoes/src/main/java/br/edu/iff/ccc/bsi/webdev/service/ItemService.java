@@ -191,5 +191,16 @@ public class ItemService {
 		return null;
 	}
 
+	public ArrayList<Item> consultaPessoasPorNome(String titulo) {
+		String tituloP = "%"+titulo+"%";
+//		System.out.println("Teste Nome P: "+tituloP);
+		ArrayList<Item> itens = (ArrayList<Item>) itemRepository.consultaItensPorTitulo(tituloP);
+		
+		if(itens.size() != 0) {
+			return itens;
+		} else {
+			return null;
+		}	
+	}
 
 }

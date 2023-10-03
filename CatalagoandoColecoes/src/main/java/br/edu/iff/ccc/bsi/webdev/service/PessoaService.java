@@ -123,6 +123,19 @@ public class PessoaService {
 	}
 	
 	
+	public ArrayList<Pessoa> consultaPessoasPorNome(String nome) {
+		String nomeP = "%"+nome+"%";
+		System.out.println("Teste Nome P: "+nomeP);
+		ArrayList<Pessoa> pessoas = (ArrayList<Pessoa>) rep.consultaPessoaPorNome(nomeP);
+		
+		if(pessoas.size() != 0) {
+			return pessoas;
+		} else {
+			return null;
+		}	
+	}
+	
+	
 	public Pessoa criarColecao(Pessoa pessoa, Item item, Map<String,String> dadosColecao) {
 		Colecao colecao = new Colecao();
 		colecao.setNome(dadosColecao.get("nome"));

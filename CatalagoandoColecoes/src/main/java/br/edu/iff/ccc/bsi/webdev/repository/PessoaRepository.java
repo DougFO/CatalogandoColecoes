@@ -4,6 +4,7 @@ import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,6 +27,9 @@ public interface PessoaRepository extends JpaRepository<Pessoa,Long>{
 	
 	@Query(value = "SELECT FK_COLECAO FROM PESSOA WHERE CPF LIKE (?1)", nativeQuery =true)
 	Long consultaFKColecao(String cpf);
+	
+	@Query(value = "SELECT * FROM PESSOA WHERE NOME LIKE (?1)", nativeQuery =true)
+	List<Pessoa> consultaPessoaPorNome(String nome);
 	
 	@Transactional
 	@Modifying
