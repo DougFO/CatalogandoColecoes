@@ -308,4 +308,9 @@ public class PessoaService {
 		}
 		return null;
 	}
+	
+	public ArrayList<Colecao> consultaColecoes() {
+		return colecaoService.consultaColecoes();
+	}
+	
 }

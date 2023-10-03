@@ -194,5 +194,17 @@ public class PessoaRestController {
 	}
 	
 	
-
+	@GetMapping("/Colecao")
+	@Operation(summary = "Consultando todas Coleções cadastradas")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Coleções encontradas"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<ArrayList<Colecao>> consultaColecoes() {		
+		return new ResponseEntity<>(pessoaService.consultaColecoes(), HttpStatus.CREATED);
+	}
 }

@@ -160,9 +160,9 @@ public class ColecaoService {
 		}	
 	}
 	
-	public List<Colecao> consultaColecoes() {
-		return colecaoRepository.findAll();
-	}
+//	public List<Colecao> consultaColecoes() {
+//		return colecaoRepository.findAll();
+//	}
 	
 //	public boolean atualizaColecao(Map<String,String> colecaoMap) { 02/10/2023
 //			Colecao colecao = new Colecao();
@@ -242,6 +242,8 @@ public class ColecaoService {
 		colecaoRepository.deleteById(colecao.getID());
 	}
 
-
+	public ArrayList<Colecao> consultaColecoes() {
+		return (ArrayList<Colecao>) colecaoRepository.findAll();
+	}
 
 }

@@ -43,25 +43,25 @@ public class ColecaoRestController {
 
 
 	
-	@GetMapping("/{cpf}")
-	@ResponseBody
-	@Operation(summary = "Consultando uma coleção")
-//	@ApiResponses({
-//	    @ApiResponse(responseCode = "201", content = {
-//	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
-//	    }, description = "OK"),
-//	    @ApiResponse(responseCode = "500", content = {
-//	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
-//	    }, description = "Internal server error")
-//	})
-	public Colecao consultaColecao(@PathVariable("cpf") String cpf) {
-		Colecao colecaoConsultada = colecaoService.consultaColecao(cpf);
-		if(colecaoConsultada != null) {
-			return colecaoConsultada;
-		} else {
-			return null;
-		}		
-	}
+//	@GetMapping("/{cpf}")
+//	@ResponseBody
+//	@Operation(summary = "Consultando uma coleção")
+////	@ApiResponses({
+////	    @ApiResponse(responseCode = "201", content = {
+////	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
+////	    }, description = "OK"),
+////	    @ApiResponse(responseCode = "500", content = {
+////	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+////	    }, description = "Internal server error")
+////	})
+//	public Colecao consultaColecao(@PathVariable("cpf") String cpf) {
+//		Colecao colecaoConsultada = colecaoService.consultaColecao(cpf);
+//		if(colecaoConsultada != null) {
+//			return colecaoConsultada;
+//		} else {
+//			return null;
+//		}		
+//	}
 	
 	
 //	@PostMapping(path = "/item")
@@ -84,19 +84,19 @@ public class ColecaoRestController {
 //		}
 //	}
 	
-	@GetMapping
-	@Operation(summary = "Consultando todas as coleções")
-	@ApiResponses({
-	    @ApiResponse(responseCode = "200", content = {
-	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
-	    }, description = "OK"),
-	    @ApiResponse(responseCode = "500", content = {
-	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
-	    }, description = "Internal server error")
-	})
-	public List<Colecao> consultaColecoes() {
-		return colecaoService.consultaColecoes();
-	}
+//	@GetMapping
+//	@Operation(summary = "Consultando todas as coleções")
+//	@ApiResponses({
+//	    @ApiResponse(responseCode = "200", content = {
+//	        @Content(schema = @Schema(implementation = Colecao.class), mediaType = "application/json"),
+//	    }, description = "OK"),
+//	    @ApiResponse(responseCode = "500", content = {
+//	        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+//	    }, description = "Internal server error")
+//	})
+//	public List<Colecao> consultaColecoes() {
+//		return colecaoService.consultaColecoes();
+//	}
 	
 //	@PutMapping 02/10/2023
 //	@ResponseBody
