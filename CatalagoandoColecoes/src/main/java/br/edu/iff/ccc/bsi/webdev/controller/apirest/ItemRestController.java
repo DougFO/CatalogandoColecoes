@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.controller.apirest;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -81,5 +83,19 @@ public class ItemRestController {
 
 		
 		return new ResponseEntity<>(itemService.remover(isbn), HttpStatus.CREATED);			
+	}
+	
+	@GetMapping
+	@Operation(summary = "Consultando todos Itens cadastrados")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Itens encontrados"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<ArrayList<Item>> consultaPessoas() {		
+		return new ResponseEntity<>(itemService.consultaItens(), HttpStatus.CREATED);
 	}
 }

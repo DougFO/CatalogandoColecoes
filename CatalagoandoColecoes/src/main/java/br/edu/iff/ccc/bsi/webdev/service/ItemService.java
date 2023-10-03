@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,10 @@ public class ItemService {
 		} else {
 			return null;
 		}	
+	}
+	
+	public ArrayList<Item> consultaItens() {
+		return (ArrayList<Item>) itemRepository.findAll();
 	}
 	
 	public Item consultaItemById(Long id) {
