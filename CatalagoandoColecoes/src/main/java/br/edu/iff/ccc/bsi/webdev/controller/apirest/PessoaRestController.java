@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.controller.apirest;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,37 @@ public class PessoaRestController {
 	}
 	
 	
+	@GetMapping("/{cpf}")
+	@Operation(summary = "Consultando Pessoa pelo CPF")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Pessoa encontrada"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Pessoa> consultaPessoa(@PathVariable("cpf") String cpf) {		
+		return new ResponseEntity<>(pessoaService.consultaPessoa(cpf), HttpStatus.CREATED);
+	}
+	
+	
+	
+	@GetMapping
+	@Operation(summary = "Consultando todas Pessoas cadastradas")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Pessoa encontrada"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<ArrayList<Pessoa>> consultaPessoas() {		
+		return new ResponseEntity<>(pessoaService.consultaPessoas(), HttpStatus.CREATED);
+	}
+	
+	
 	@PostMapping("/Colecao")
 	@Operation(summary = "Cadastrando Coleção de uma pessoa")
 	@ApiResponses({
@@ -162,17 +194,5 @@ public class PessoaRestController {
 	}
 	
 	
-	@GetMapping("/{cpf}")
-	@Operation(summary = "Consultando Pessoa pelo CPF")
-	@ApiResponses({
-    @ApiResponse(responseCode = "201", content = {
-        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
-    }, description = "Pessoa encontrada"),
-    @ApiResponse(responseCode = "500", content = {
-        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
-    }, description = "Internal server error")
-})
-	ResponseEntity<Pessoa> consultaPessoa(@PathVariable("cpf") String cpf) {		
-		return new ResponseEntity<>(pessoaService.consultaPessoa(cpf), HttpStatus.CREATED);
-	}
+
 }

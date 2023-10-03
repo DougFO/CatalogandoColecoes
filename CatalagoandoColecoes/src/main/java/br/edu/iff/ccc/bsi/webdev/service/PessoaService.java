@@ -96,6 +96,10 @@ public class PessoaService {
 		}
 	}
 	
+	public ArrayList<Pessoa> consultaPessoas() {
+		return (ArrayList<Pessoa>) rep.findAll();
+	}
+	
 	Long consultaIDUsuario(String cpf) {
 		Map<String,String> pessoaConsultada = rep.consultaPessoa(cpf);
 		return Long.parseLong(String.valueOf(pessoaConsultada.get("FK_USUARIO")));
