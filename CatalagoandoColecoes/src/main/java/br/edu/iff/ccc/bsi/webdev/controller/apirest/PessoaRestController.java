@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -158,5 +159,20 @@ public class PessoaRestController {
 })
 	ResponseEntity<Pessoa> removeItem(@PathVariable("cpf") String cpf, @PathVariable("isbn") String isbn) {		
 		return new ResponseEntity<>(pessoaService.removeItem(cpf, isbn), HttpStatus.CREATED);
+	}
+	
+	
+	@GetMapping("/{cpf}")
+	@Operation(summary = "Consultando Pessoa pelo CPF")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Pessoa encontrada"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Pessoa> consultaPessoa(@PathVariable("cpf") String cpf) {		
+		return new ResponseEntity<>(pessoaService.consultaPessoa(cpf), HttpStatus.CREATED);
 	}
 }

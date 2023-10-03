@@ -64,25 +64,25 @@ public class ColecaoRestController {
 	}
 	
 	
-	@PostMapping(path = "/item")
-	@ResponseBody
-	@Operation(summary = "Adicionando um item em uma coleção")
-	public String addItem(@RequestParam Map<String,String> colecaoItemMap) {
-		
-		String cpfPessoa = colecaoItemMap.get("pessoa");
-		String isbnItem = colecaoItemMap.get("item");
-		
-		if((cpfPessoa == "")||(isbnItem == "")) {
-			return "Item não adicionado a coleção(Faltando um dos dados)!";
-		}
-		
-
-		if(colecaoService.AddItem(cpfPessoa, isbnItem)) {
-			return "Item adicionado a coleção!";
-		} else {
-			return "Item não adicionado a coleção!";
-		}
-	}
+//	@PostMapping(path = "/item")
+//	@ResponseBody
+//	@Operation(summary = "Adicionando um item em uma coleção")
+//	public String addItem(@RequestParam Map<String,String> colecaoItemMap) {
+//		
+//		String cpfPessoa = colecaoItemMap.get("pessoa");
+//		String isbnItem = colecaoItemMap.get("item");
+//		
+//		if((cpfPessoa == "")||(isbnItem == "")) {
+//			return "Item não adicionado a coleção(Faltando um dos dados)!";
+//		}
+//		
+//
+//		if(colecaoService.AddItem(cpfPessoa, isbnItem)) {
+//			return "Item adicionado a coleção!";
+//		} else {
+//			return "Item não adicionado a coleção!";
+//		}
+//	}
 	
 	@GetMapping
 	@Operation(summary = "Consultando todas as coleções")
@@ -109,19 +109,19 @@ public class ColecaoRestController {
 //		}
 //	}
 	
-	@DeleteMapping("/item")
-	@ResponseBody
-	@Operation(summary = "Deleta um item de uma coleção")
-	public String removeItem(@RequestParam Map<String,String> colecaoMap) {
-		String cpfPessoa = colecaoMap.get("pessoa");
-		String isbnItem = colecaoMap.get("item");
-		
-		if(colecaoService.removeItem(cpfPessoa, isbnItem)) {
-			return "Item removido!";
-		} else {
-			return "Item não removido!";
-		}
-	}
+//	@DeleteMapping("/item")
+//	@ResponseBody
+//	@Operation(summary = "Deleta um item de uma coleção")
+//	public String removeItem(@RequestParam Map<String,String> colecaoMap) {
+//		String cpfPessoa = colecaoMap.get("pessoa");
+//		String isbnItem = colecaoMap.get("item");
+//		
+//		if(colecaoService.removeItem(cpfPessoa, isbnItem)) {
+//			return "Item removido!";
+//		} else {
+//			return "Item não removido!";
+//		}
+//	}
 	
 	@GetMapping("/item/{pessoa}/{item}")
 	@Operation(summary = "Consultando um item de uma coleção")

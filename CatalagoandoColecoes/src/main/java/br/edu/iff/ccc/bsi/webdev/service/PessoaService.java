@@ -61,29 +61,39 @@ public class PessoaService {
 	
 	
 	public Pessoa consultaPessoa(String cpf) {
-		Map<String,String> pessoaConsultada = rep.consultaPessoa(cpf);
-		Pessoa pessoa = new Pessoa();
-		pessoa.setID(Long.parseLong(String.valueOf(pessoaConsultada.get("ID"))));
-		pessoa.setCpf(pessoaConsultada.get("CPF"));
-		pessoa.setEmail(pessoaConsultada.get("EMAIL"));
-		pessoa.setNome(pessoaConsultada.get("NOME"));
-		
-		Endereco endereco = new Endereco();
-		endereco.setCEP(pessoaConsultada.get("CEP"));
-		endereco.setBairro(pessoaConsultada.get("BAIRRO"));
-		endereco.setCidade(pessoaConsultada.get("CIDADE"));
-		endereco.setEstado(pessoaConsultada.get("ESTADO"));
-		endereco.setRua(pessoaConsultada.get("RUA"));
-		endereco.setNumero(pessoaConsultada.get("NUMERO"));
-		
-		pessoa.setEndereco(endereco);
-		
-		Usuario usuario = new Usuario();
-		Long idUsuario = this.consultaIDUsuario(cpf);
-		usuario = usuarioService.consultaUsuario(idUsuario);
-		pessoa.setUsuario(usuario);			
-				
-		return pessoa;
+		if(rep.consultaIdPessoa(cpf) != null) {
+			Map<String,String> pessoaConsultada = rep.consultaPessoa(cpf);
+			Pessoa pessoa = new Pessoa();
+			pessoa.setID(Long.parseLong(String.valueOf(pessoaConsultada.get("ID"))));
+			pessoa.setCpf(pessoaConsultada.get("CPF"));
+			pessoa.setEmail(pessoaConsultada.get("EMAIL"));
+			pessoa.setNome(pessoaConsultada.get("NOME"));
+			
+			Endereco endereco = new Endereco();
+			endereco.setCEP(pessoaConsultada.get("CEP"));
+			endereco.setBairro(pessoaConsultada.get("BAIRRO"));
+			endereco.setCidade(pessoaConsultada.get("CIDADE"));
+			endereco.setEstado(pessoaConsultada.get("ESTADO"));
+			endereco.setRua(pessoaConsultada.get("RUA"));
+			endereco.setNumero(pessoaConsultada.get("NUMERO"));
+			
+			pessoa.setEndereco(endereco);
+			
+			Usuario usuario = new Usuario();
+			Long idUsuario = this.consultaIDUsuario(cpf);
+			usuario = usuarioService.consultaUsuario(idUsuario);
+			pessoa.setUsuario(usuario);			
+					
+			if(colecaoService.consultaColecao(cpf) != null) {
+				Colecao c = colecaoService.consultaColecao(cpf);
+				pessoa.setColecao(c);
+			}
+			
+			return pessoa;
+		} else {
+			System.out.println("Pessoa consultada não está cadastrada!");
+			return null;
+		}
 	}
 	
 	Long consultaIDUsuario(String cpf) {
