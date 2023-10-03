@@ -95,7 +95,21 @@ public class ItemRestController {
         @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
     }, description = "Internal server error")
 })
-	ResponseEntity<ArrayList<Item>> consultaPessoas() {		
+	ResponseEntity<ArrayList<Item>> consultaItens() {		
 		return new ResponseEntity<>(itemService.consultaItens(), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/{isbn}")
+	@Operation(summary = "Consultando um Item cadastrado pelo ISBN")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Pessoa.class), mediaType = "application/json"),
+    }, description = "Item encontrado"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<Item> consultaItem(@PathVariable("isbn") String isbn) {		
+		return new ResponseEntity<>(itemService.consultaItem(isbn), HttpStatus.CREATED);
 	}
 }

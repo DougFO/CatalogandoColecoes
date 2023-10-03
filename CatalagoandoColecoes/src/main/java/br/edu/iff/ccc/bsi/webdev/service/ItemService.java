@@ -83,6 +83,7 @@ public class ItemService {
 			
 			return item;
 		} else {
+			System.out.println("Item consultado não está cadastrado!");
 			return null;
 		}	
 	}
