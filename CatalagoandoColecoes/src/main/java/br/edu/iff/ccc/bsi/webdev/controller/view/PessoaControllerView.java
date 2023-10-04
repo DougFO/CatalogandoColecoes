@@ -27,5 +27,10 @@ public class PessoaControllerView {
 	public String editadoSucesso() {
 		return "pessoa/edicaoSucesso";
 	}
+	
+	@RequestMapping(path = "/pesquisa")
+	public String pesquisaPessoa() {
+		return "pessoa/pesquisaPessoa";
+	}
 
 }

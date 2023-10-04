@@ -32,4 +32,12 @@ public class PessoaController {
 		//System.out.println("Nome: "+pessoas.get(0).getNome());
 		return "/pessoa/pessoa.html";
 	}
+	
+	@GetMapping("/pessoas/{nome}")
+	public String listarPessoas(@PathVariable("nome") String nome, Model model) {
+		List<Pessoa> pessoas = pessoaService.consultaPessoasPorNome(nome);
+		model.addAttribute("pessoas", pessoas);
+		//System.out.println("Nome: "+pessoas.get(0).getNome());
+		return "/pessoa/pessoas.html";
+	}
 }
