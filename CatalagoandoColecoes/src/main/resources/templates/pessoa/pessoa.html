@@ -1,8 +1,95 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Página de pessoa</title>
+		
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		
+		
+		<link th:href="@{/css/navbars.css}" rel="stylesheet">
+		<style>
+			form{
+			  padding: 30px 0;
+			}					
+			
+			.formulario {
+				padding: 30px 0;
+				background-color: rgb(192, 192, 192);
+				border-radius: 5px;
+				width: 70%;
+				text-align: center;
+			}
+		</style>
+
 	</head>
 	<body>
-		<h1>Página de pessoa</h1>
+		<!--<main>-->
+			<div th:replace="~{/barraNavegacao/index :: barraNavegacao}">
+				
+			</div>			
+						
+			<div class="container formulario">
+				<div class="row justify-content-md-center">
+				<!--<div class="row">-->
+					<div class="col-md-8">
+						<h3 th:text="'Dados de '+${pessoa.nome}">Página de pessoa</h3>
+						<hr>
+						<form method="put" id="myForm">
+
+								<label for="lPessoaCPF">CPF:</label><br>
+								<input type="text" id="lPessoaCPF" name="cpf" class="form-control" th:value="${pessoa.cpf}" required><br>
+	
+								<label for="lPessoaNome">Nome:</label><br>
+								<input type="text" id="lPessoaNome" name="nome" class="form-control" th:value="${pessoa.nome}" required><br>
+
+								<label for="lPessoaEmail">E-mail:</label><br>
+								<input type="text" id="lPessoaEmail" name="email" class="form-control" th:value="${pessoa.email}" required><br>
+
+								<label for="lPessoaCEP">CEP:</label><br>
+								<input type="text" id="lPessoaCEP" name="cEP" class="form-control" th:value="${pessoa.endereco.cEP}"><br>
+
+								<label for="lPessoaRua">Rua:</label><br>
+								<input type="text" id="lPessoaRua" name="rua" class="form-control" th:value="${pessoa.endereco.rua}"><br>
+	
+								<label for="lPessoaNumero">Número:</label><br>
+								<input type="text" id="lPessoaNumero" name="numero" class="form-control" th:value="${pessoa.endereco.numero}"><br>
+
+								<label for="lPessoaBairro">Bairro:</label><br>
+								<input type="text" id="lPessoaBairro" name="bairro" class="form-control" th:value="${pessoa.endereco.bairro}"><br>
+
+								<label for="lPessoaCidade">Cidade:</label><br>
+								<input type="text" id="lPessoaCidade" name="cidade" class="form-control" th:value="${pessoa.endereco.cidade}"><br>
+
+								<label for="lPessoaEstado">Estado:</label><br>
+								<input type="text" id="lPessoaEstado" name="estado" class="form-control" th:value="${pessoa.endereco.estado}"><br><br><br>
+									
+								<br><br>
+								<h3>Cadastro de usuário</h3>
+								<hr>
+								<!--<form action="/action_page.php">-->
+								
+								 <!--<label for="fId">ID:</label><br>
+								 <input type="text" id="fId" name="ID"><br>-->
+								 
+								 <label for="lUserName">Username:</label><br>
+								 <input type="text" id="lUserName" name="username" class="form-control" th:value="${pessoa.usuario.username}" required><br>
+				 
+								 <label for="lPassword">Password</label>:</label><br>
+								 <input type="password" id="lPassword" name="password" class="form-control" required><br>
+	
+								 <label for="lnivel">Nivel:</label><br>
+								 <input type="nivel" id="tnivel" name="nivel" class="form-control" th:value="${pessoa.usuario.nivel}" required><br><br><br>
+
+								 <!--<input id="botaoCad" type="submit" value="Enviar">-->
+								 <button id="botaoEditar" type="submit" class="btn btn-success btn-block form-control" >Editar</button>
+								 <!--<input type="submit" name="submit" value="Enviar" class="btn btn-success">-->
+							
+						</form>
+					</div>
+				</div>
+			</div>	
+		<!--</main>-->
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/pessoa/pessoa.js}"></script>
 	</body>
 </html>

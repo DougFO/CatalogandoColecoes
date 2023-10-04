@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/pessoa")
 public class PessoaControllerView {
 	
-	@RequestMapping(path = "")
-	public String page() {
-		return "pessoa/pessoa";
-	}
+//	@RequestMapping(path = "")
+//	public String page() {
+//		return "pessoa/pessoa";
+//	}
 	
 	@RequestMapping(path = "/cadastro")
 	public String cadastro() {
@@ -21,6 +21,11 @@ public class PessoaControllerView {
 	@RequestMapping(path = "/cadastro/sucesso")
 	public String cadastroSucesso() {
 		return "pessoa/cadSucesso";
+	}
+	
+	@RequestMapping(path = "/editar/sucesso")
+	public String editadoSucesso() {
+		return "pessoa/edicaoSucesso";
 	}
 
 }
