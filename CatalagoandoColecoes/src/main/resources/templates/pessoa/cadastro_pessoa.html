@@ -1,42 +1,85 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Página de cadastro de pessoa</title>	
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		
+		
+		<link th:href="@{/css/navbars.css}" rel="stylesheet">
+		<style>
+			form{
+			  padding: 30px 0;
+			}					
+			
+			.formulario {
+				padding: 30px 0;
+				background-color: rgb(192, 192, 192);
+				border-radius: 5px;
+				width: 70%;
+				text-align: center;
+			}
+		</style>
 	</head>
 	
 	<body>
-		<form method="post" action="api/cadastroPessoa/save">
-			<h2>Cadastro de Pessoa</h2>
-			<label for="lPessoaCPF">CPF:</label><br>
-			<input type="text" id="lPessoaCPF" name="cpf" required><br>
-			<label for="lPessoaNome">Nome:</label><br>
-			<input type="text" id="lPessoaNome" name="nome" required><br>
-			<label for="lPessoaEmail">E-mail:</label><br>
-			<input type="text" id="lPessoaEmail" name="email" required><br>
-			<label for="lPessoaCEP">CEP:</label><br>
-			<input type="text" id="lPessoaCEP" name="cEP"><br>
-			<label for="lPessoaRua">Rua:</label><br>
-			<input type="text" id="lPessoaRua" name="rua"><br>
-			<label for="lPessoaNumero">Número:</label><br>
-			<input type="text" id="lPessoaNumero" name="numero"><br>
-			<label for="lPessoaBairro">Bairro:</label><br>
-			<input type="text" id="lPessoaBairro" name="bairro"><br>
-			<label for="lPessoaCidade">Cidade:</label><br>
-			<input type="text" id="lPessoaCidade" name="cidade"><br>
-			<label for="lPessoaEstado">Estado:</label><br>
-			<input type="text" id="lPessoaEstado" name="estado"><br>
-			
-			<h2>Cadastro de usuário</h2>
-			<!--<form action="/action_page.php">-->
-			
-			 <!--<label for="fId">ID:</label><br>
-			 <input type="text" id="fId" name="ID"><br>-->
-			 <label for="lUserName">Username:</label><br>
-			 <input type="text" id="lUserName" name="username" required><br>
-			 <label for="lPassword">Password</label>:</label><br>
-			 <input type="password" id="lPassword" name="password" required><br>
-			 <label for="lnivel">Nivel:</label><br>
-			 <input type="nivel" id="tnivel" name="nivel" required><br><br><br>
-			 <input type="submit" value="Enviar">
-		</form>
+		<main>
+			<div th:replace="~{/barraNavegacao/index :: barraNavegacao}">
+				
+			</div>
+			<!--<form method="post" action="api/cadastroPessoa/save">-->
+			<!--<form method="post" action="/api/v1/pessoa" onsubmit="cadastrado()">-->
+			<div class="container formulario">
+				<div class="row justify-content-md-center">
+				<!--<div class="row">-->
+					<div class="col-md-8">	
+						<h3>Cadastro de pessoa</h3>
+						<hr>
+						<form method="post" id="myForm">
+							
+							<label for="lPessoaCPF">CPF:</label><br>
+							<input type="text" id="lPessoaCPF" name="cpf" class="form-control" required><br>
+							
+							<label for="lPessoaNome">Nome:</label><br>
+							<input type="text" id="lPessoaNome" name="nome" class="form-control" required><br>
+							
+							<label for="lPessoaEmail">E-mail:</label><br>
+							<input type="text" id="lPessoaEmail" name="email" class="form-control" required><br>
+							
+							<label for="lPessoaCEP">CEP:</label><br>
+							<input type="text" id="lPessoaCEP" name="cEP" class="form-control"><br>
+							
+							<label for="lPessoaRua">Rua:</label><br>
+							<input type="text" id="lPessoaRua" name="rua" class="form-control"><br>
+							
+							<label for="lPessoaNumero">Número:</label><br>
+							<input type="text" id="lPessoaNumero" name="numero" class="form-control"><br>
+							
+							<label for="lPessoaBairro">Bairro:</label><br>
+							<input type="text" id="lPessoaBairro" name="bairro" class="form-control"><br>
+							
+							<label for="lPessoaCidade">Cidade:</label><br>
+							<input type="text" id="lPessoaCidade" name="cidade" class="form-control"><br>
+							
+							<label for="lPessoaEstado">Estado:</label><br>
+							<input type="text" id="lPessoaEstado" name="estado" class="form-control"><br><br><br>
+							
+							<h2>Cadastro de usuário</h2>
+							<hr>
+							<!--<form action="/action_page.php">-->
+							
+							 <!--<label for="fId">ID:</label><br>
+							 <input type="text" id="fId" name="ID"><br>-->
+							 <label for="lUserName">Username:</label><br>
+							 <input type="text" id="lUserName" name="username" class="form-control" required><br>
+							 <label for="lPassword">Password</label>:</label><br>
+							 <input type="password" id="lPassword" name="password" class="form-control" required><br>
+							 <label for="lnivel">Nivel:</label><br>
+							 <input type="nivel" id="tnivel" name="nivel" class="form-control" required><br><br><br>
+							 <!--<input id="botaoCad" type="submit" value="Enviar">-->
+							 <button id="botaoCad" class="btn btn-success form-control">Cadastrar</button>
+						</form>										
+		</main>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/pessoa/cadPessoa.js}"></script>
 	</body>
 </html>

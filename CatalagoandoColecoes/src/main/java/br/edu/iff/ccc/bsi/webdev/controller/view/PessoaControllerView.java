@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path = "/Pessoa")
+@RequestMapping(path = "/pessoa")
 public class PessoaControllerView {
 	
 	@RequestMapping(path = "")
@@ -16,6 +16,11 @@ public class PessoaControllerView {
 	@RequestMapping(path = "/cadastro")
 	public String cadastro() {
 		return "pessoa/cadastro_pessoa";
+	}
+	
+	@RequestMapping(path = "/cadastro/sucesso")
+	public String cadastroSucesso() {
+		return "pessoa/cadSucesso";
 	}
 
 }
