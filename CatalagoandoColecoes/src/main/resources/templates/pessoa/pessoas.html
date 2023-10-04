@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+        <title>Pessoas</title>
+          <meta charset="utf-8">
+          <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		
+		
+		<link th:href="@{/css/navbars.css}" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" th:href="@{/DataTables-1.10.20/css/dataTables.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/DataTables-1.10.20/css/dataTable.css}">       
+    </head>
+    <body>
+		<main>
+			<div th:replace="~{/barraNavegacao/index :: barraNavegacao}">
+				
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<h3>
+							Lista de Pessoas
+						</h3>
+						<table id="tabelaPessoas" class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<th>
+										ID
+									</th>
+									<th>
+										CPF
+									</th>
+									<th>
+										NOME
+									</th>
+									<th>
+										EMAIL
+									</th>
+									<th>
+										Colecao
+									</th>
+									<th>
+										
+									</th>
+									<th>
+										
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each = "p : ${pessoas}">
+									<td th:text="${p.ID}">
+										1
+									</td>
+									<td th:text="${p.cpf}">
+										TB - Monthly
+									</td>
+									<td th:text="${p.nome}">
+										01/04/2012
+									</td>
+									<td th:text="${p.email}">
+										Default
+									</td>
+									<td>
+										<span th:if="${p.colecao == null}">Não tem!</span>
+										<span th:unless="${p.colecao == null}"><span th:text="${p.colecao.nome}"></span></span>
+									</td>				
+									<td>
+										<!--<a class="btn btn-primary" th:href="@{'../pessoa/'+${p.cpf}(cpf=${p.cpf})}">Editar</a>-->	
+										<a class="btn btn-primary" th:href="@{'../pessoa/'+${p.cpf}}">Editar</a>					
+									</td>
+									<td>
+										<button class="btn btn-danger" th:attr="onclick='remover(' + ${p.cpf} + ')'">Remover</button>						
+									</td>
+								</tr>			
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>				
+		</main>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/scripts.js}"></script>
+		<script th:src="@{/js/pessoa/pessoas.js}"></script>
+		<script type="text/javascript" th:src="@{/DataTables-1.10.20/js/jquery.dataTables.min.js}"></script>
+	</body>
+</html>
