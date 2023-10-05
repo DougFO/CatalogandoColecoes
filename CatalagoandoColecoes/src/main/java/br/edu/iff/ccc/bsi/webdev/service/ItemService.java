@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.edu.iff.ccc.bsi.webdev.entities.Hq;
 import br.edu.iff.ccc.bsi.webdev.entities.Item;
 import br.edu.iff.ccc.bsi.webdev.entities.Manga;
+import br.edu.iff.ccc.bsi.webdev.entities.Pessoa;
 import br.edu.iff.ccc.bsi.webdev.entities.TipoManga;
 import br.edu.iff.ccc.bsi.webdev.repository.HqRepository;
 import br.edu.iff.ccc.bsi.webdev.repository.ItemRepository;
@@ -289,9 +290,22 @@ public class ItemService {
 		return null;
 	}
 	
-	public ArrayList<Item> consultaPessoasPorNome(String titulo) {
+	/*public ArrayList<Item> consultaPessoasPorNome(String titulo) {
 		String tituloP = "%"+titulo+"%";
 //		System.out.println("Teste Nome P: "+tituloP);
+		ArrayList<Item> itens = (ArrayList<Item>) itemRepository.consultaItensPorTitulo(tituloP);
+		
+		if(itens.size() != 0) {
+			return itens;
+		} else {
+			return null;
+		}	
+	}*/
+	
+	
+	public ArrayList<Item> consultaItensPorTitulo(String titulo) {
+		String tituloP = "%"+titulo+"%";
+		System.out.println("Teste Nome P: "+tituloP);
 		ArrayList<Item> itens = (ArrayList<Item>) itemRepository.consultaItensPorTitulo(tituloP);
 		
 		if(itens.size() != 0) {

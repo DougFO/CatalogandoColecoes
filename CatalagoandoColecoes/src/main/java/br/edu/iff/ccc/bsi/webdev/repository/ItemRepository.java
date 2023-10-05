@@ -34,4 +34,5 @@ public interface ItemRepository extends JpaRepository<Item,Long>{
 	
 	@Query(value = "SELECT HQ.EDITORA_ORIGINAL,HQ.PERSONAGEM_GRUPO FROM HQ JOIN ITEM AS I ON HQ.ID = I.ID WHERE isbn LIKE (?1)", nativeQuery =true)
 	Map<String,String> consultaHq(String isbn);
+
 }

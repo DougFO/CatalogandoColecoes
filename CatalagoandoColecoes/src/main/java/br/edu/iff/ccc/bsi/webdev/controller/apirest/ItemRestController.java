@@ -112,6 +112,27 @@ public class ItemRestController {
 	}
 	
 	
+	@GetMapping("/itens/{titulo}")
+	@Operation(summary = "Consultando todos Itens cadastrados que contenham o titulo passado")
+	@ApiResponses({
+    @ApiResponse(responseCode = "201", content = {
+        @Content(schema = @Schema(implementation = Item.class), mediaType = "application/json"),
+    }, description = "Itens encontrados com o titulo"),
+    @ApiResponse(responseCode = "500", content = {
+        @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+    }, description = "Internal server error")
+})
+	ResponseEntity<ArrayList<Item>> consultaItensPorTitutlo(@PathVariable("titulo") String titulo) {
+		return new ResponseEntity<>(itemService.consultaItensPorTitulo(titulo), HttpStatus.OK);
+	}
+//	public String listarItens(@PathVariable("titulo") String titulo, Model model) {
+//		List<Item> itens = itemService.consultaItensPorTitulo(titulo);
+//		model.addAttribute("itens", itens);
+//		//System.out.println("Nome: "+pessoas.get(0).getNome());
+//		return "/item/itens.html";
+//	}
+	
+	
 	@GetMapping("/{isbn}")
 	@Operation(summary = "Consultando um Item cadastrado pelo ISBN")
 	@ApiResponses({

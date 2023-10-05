@@ -30,18 +30,33 @@
 				<div class="container">
 					<div class="row">						
 						<div class="col-md-6">
-							<label for="opcaoPesquisa">Escolha uma opção abaixo:</label><br>
+							
+							<label class="text-center">Qual item que você está procurando?</label><br><br>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="opcao" id="manga" value="manga">
+							  <label class="form-check-label" for="flexRadioDisabled">
+							    Mangá
+							  </label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="opcao" id="hq" value="hq">
+							  <label class="form-check-label" for="flexRadioCheckedDisabled">
+							    HQ
+							  </label>
+							</div><br><br>
+							
+							<!--<label for="opcaoPesquisa">Escolha uma opção abaixo:</label><br>
 							<select id="opcaoPesquisa" onchange="carregarCampos()">
 								<option value="nada"></option>
 								<option value="isbn">ISBN</option>
 								<option value="titulo">Título</option>
-							</select><br><br>
+							</select><br><br>-->
 							<label for="lIsbnPesquisa">ISBN:</label><br>
 							 <input type="text" id="lIsbnPesquisa" name="isbnPesquisa" class="form-control"><br>
 							 
-							 <label for="lTituloPesquisa">Nome:</label><br>
-							 <input type="text" id="lTituloPesquisa" name="tituloPesquisa" class="form-control"><br>
-							 <button id="botaoPesquisa" class="btn btn-primary" onclick="pesquisar()">Pesquisar</button>
+							 <!--<label for="lTituloPesquisa">Nome:</label><br>
+							 <input type="text" id="lTituloPesquisa" name="tituloPesquisa" class="form-control"><br>-->
+							 <button id="botaoPesquisa" class="btn btn-primary" onclick="pesquisar()">Pesquisar</button>-
 						</div>
 					</div>
 				</div>	

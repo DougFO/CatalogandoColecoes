@@ -58,4 +58,14 @@ public class ItemController {
 		//System.out.println("Nome: "+pessoas.get(0).getNome());
 		return "/item/hq.html";
 	}
+	
+	@GetMapping("/itensPesquisados/{titulo}")
+	public String listarItens(@PathVariable("titulo") String titulo, Model model) {
+		//List<Item> itens = itemService.consultaItensPorTitulo(titulo);
+		//model.addAttribute("itens", itens);
+		String tituloP = titulo;
+		model.addAttribute("titulo", tituloP);
+		//System.out.println("Nome: "+pessoas.get(0).getNome());
+		return "/item/itensPesquisados.html";
+	}
 }
