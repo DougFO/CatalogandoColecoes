@@ -76,7 +76,7 @@ public class ItemRestController {
 	ResponseEntity<Item> atualizar(@PathVariable("isbn") String isbn, Item item, @RequestParam Map<String,String> itemMap) {
 
 			
-			return new ResponseEntity<>(itemService.atualizar(isbn,item,itemMap), HttpStatus.CREATED);			
+			return new ResponseEntity<>(itemService.atualizar(isbn,item,itemMap), HttpStatus.OK);			
 		}
 	
 	
@@ -93,7 +93,7 @@ public class ItemRestController {
 	ResponseEntity<Item> remover(@PathVariable("isbn") String isbn) {
 
 		System.out.println("TesteIsbn: "+isbn);
-		return new ResponseEntity<>(itemService.remover(isbn), HttpStatus.CREATED);			
+		return new ResponseEntity<>(itemService.remover(isbn), HttpStatus.OK);			
 	}
 	
 	
@@ -108,7 +108,7 @@ public class ItemRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<ArrayList<Item>> consultaItens() {		
-		return new ResponseEntity<>(itemService.consultaItens(), HttpStatus.CREATED);
+		return new ResponseEntity<>(itemService.consultaItens(), HttpStatus.OK);
 	}
 	
 	
@@ -123,7 +123,7 @@ public class ItemRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<Item> consultaItem(@PathVariable("isbn") String isbn) {		
-		return new ResponseEntity<>(itemService.consultaItem(isbn), HttpStatus.CREATED);
+		return new ResponseEntity<>(itemService.consultaItem(isbn), HttpStatus.OK);
 	}
 	
 	
@@ -138,6 +138,6 @@ public class ItemRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<Manga> consultaManga(@PathVariable("isbn") String isbn) {		
-		return new ResponseEntity<>(itemService.consultaManga(isbn), HttpStatus.CREATED);
+		return new ResponseEntity<>(itemService.consultaManga(isbn), HttpStatus.OK);
 	}
 }

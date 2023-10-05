@@ -100,7 +100,7 @@ public class PessoaRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<ArrayList<Pessoa>> consultaPessoas() {		
-		return new ResponseEntity<>(pessoaService.consultaPessoas(), HttpStatus.CREATED);
+		return new ResponseEntity<>(pessoaService.consultaPessoas(), HttpStatus.OK);
 	}
 	
 //	@GetMapping()
@@ -122,7 +122,7 @@ public class PessoaRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<Pessoa> consultaPessoa(@PathVariable("cpf") String cpf) {		
-		return new ResponseEntity<>(pessoaService.consultaPessoa(cpf), HttpStatus.CREATED);
+		return new ResponseEntity<>(pessoaService.consultaPessoa(cpf), HttpStatus.OK);
 	}
 	
 	
@@ -152,7 +152,7 @@ public class PessoaRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<Pessoa> atualizarColecao(@PathVariable("cpf") String cpf,Colecao colecao, @RequestParam Map<String,String> dadosAtualizacao) {		
-		return new ResponseEntity<>(pessoaService.atualizarColecao(cpf,colecao, dadosAtualizacao), HttpStatus.CREATED);
+		return new ResponseEntity<>(pessoaService.atualizarColecao(cpf,colecao, dadosAtualizacao), HttpStatus.OK);
 	}
 	
 	
@@ -169,7 +169,7 @@ public class PessoaRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<Pessoa> removerColecao(@PathVariable("cpf") String cpf) {		
-		return new ResponseEntity<>(pessoaService.removerColecao(cpf), HttpStatus.CREATED);
+		return new ResponseEntity<>(pessoaService.removerColecao(cpf), HttpStatus.OK);
 	}
 	
 	
@@ -199,7 +199,7 @@ public class PessoaRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<Pessoa> removeItem(@PathVariable("cpf") String cpf, @PathVariable("isbn") String isbn) {		
-		return new ResponseEntity<>(pessoaService.removeItem(cpf, isbn), HttpStatus.CREATED);
+		return new ResponseEntity<>(pessoaService.removeItem(cpf, isbn), HttpStatus.OK);
 	}	
 	
 
@@ -214,6 +214,6 @@ public class PessoaRestController {
     }, description = "Internal server error")
 })
 	ResponseEntity<ArrayList<Colecao>> consultaColecoes() {		
-		return new ResponseEntity<>(pessoaService.consultaColecoes(), HttpStatus.CREATED);
+		return new ResponseEntity<>(pessoaService.consultaColecoes(), HttpStatus.OK);
 	}
 }
