@@ -26,16 +26,7 @@ public class ColecaoService {
 	
 	@Autowired
 	private ItemService itemService = new ItemService();
-
 	
-//	public Long verificaColecao(String cpf) {
-//		if(colecaoRepository.verificaColecao(cpf) != null) {
-//			return (colecaoRepository.verificaColecao(cpf));
-//		} else {
-//			return null;
-//		}
-//	}
-//	
 	public List<Item> consultaItens(String cpf) {
 		Long id = colecaoRepository.verificaColecao(cpf);
 		if(id != null) {
@@ -49,8 +40,8 @@ public class ColecaoService {
 			return null;
 		}
 	}
-//	
-//
+	
+
 	public Colecao consultaColecao(String cpf) {
 		if(colecaoRepository.verificaColecao(cpf) != null) {
 			Map<String,String> colecaoConsultada = colecaoRepository.consultaColecao(cpf);
@@ -71,8 +62,6 @@ public class ColecaoService {
 			}
 			colecao.setData_inicio(cal);
 			
-//			Pessoa pessoa = pessoaService.consultaPessoa(cpf);
-//			colecao.setPessoa(pessoa);
 			
 			List<Item> itensConsultados = this.consultaItens(cpf);
 			for(int i=0;i<itensConsultados.size();i++) {
@@ -84,132 +73,73 @@ public class ColecaoService {
 			return null;
 		}
 	}
-//		
-//	
-////	public boolean AddItem(String cpfPessoa, String isbnItem) {
-////		if((cpfPessoa == "")||(isbnItem == "")) {
-////			return false;
-////		}
-////		
-////		Long idColecao = this.verificaColecao(cpfPessoa);
-////		Long idItem = itemService.consultaIdItem(isbnItem);
-////		
-////		if(colecaoRepository.AddItem(idColecao, idItem) == 1) {
-////			return true;
-////		} else {
-////			return false;
-////		}
-////	}
-//	
-//	public boolean AddItem(String cpfPessoa, String isbnItem) {
-//		if((cpfPessoa == "")||(isbnItem == "")) {
-//			return false;
-//		}
-//
-//		if(itemService.verificaItem(isbnItem)) {
-//			Colecao colecao = this.consultaColecao(cpfPessoa);
-//			Item itemNovo = itemService.consultaItem(isbnItem);
-//			colecao.addItem(itemNovo);
-//			
-//			Colecao colecaoTeste = colecaoRepository.saveAndFlush(colecao);
-//			if(colecaoTeste.equals(null)) {
-//				return false;
-//			} else {
-//				return true;
-//			}
-//		} else {
-//			return false;
-//		}	
-//	}
-//	
-//	public List<Colecao> consultaColecoes() {
-//		return colecaoRepository.findAll();
-//	}
-//	
-//	public boolean atualizaColecao(Map<String,String> colecaoMap) {
-//			Colecao colecao = new Colecao();
-//			colecao.setNome(colecaoMap.get("nome"));
-//			colecao.setObservacao(colecaoMap.get("observacao"));
-//			
-//			Calendar cal = Calendar.getInstance();
-//			try {
-//				String data = String.valueOf(colecaoMap.get("data_inicio"));
-//				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH);
-//				
-//				cal.setTime(sdf.parse(data.substring(0, 10)));
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//			colecao.setData_inicio(cal);
-//			
-//			Pessoa pessoa = pessoaService.consultaPessoa(colecaoMap.get("pessoa"));
-//			colecao.setPessoa(pessoa);
-//			
-//			colecao.setID(colecaoRepository.verificaColecao(colecao.getPessoa().getCpf()));
-//			
-//			//System.out.println("Cpf Colecao: "+colecao.getPessoa().getCpf());
-//			
-//			Colecao colecaoConsultada = this.consultaColecao(colecao.getPessoa().getCpf());
-//			
-//			List<Item> itens = colecaoConsultada.getItens();
-//			for(int i=0;i<itens.size();i++) {
-//				colecao.addItem(itens.get(i));
-//			}
-//			
-//			Colecao colecaoVerifica = colecaoRepository.saveAndFlush(colecao);
-//			if(colecaoVerifica == null) {
-//				return false;
-//			}
-//			return true;
-//	}
-//	
-//	public boolean removeItem(String cpf, String isbn) {
-//		Colecao colecao = this.consultaColecao(cpf);
-//		Item item = itemService.consultaItem(isbn);
-//		if(item != null) {
-//			boolean verifica = colecao.removeItem(item);
-//			if(verifica == true) {
-//				Colecao colecaoVerifica = colecaoRepository.saveAndFlush(colecao);
-//				if(colecaoVerifica == null) {
-//					return false;
-//				} else {
-//					return true;
-//				}
-//			}
-//		} else {
-//			return false;
-//		}
-//		return false;
-//	}
-//	
-//	public Item consultaItemColecao(String cpf, String isbn) {
-//		if(colecaoRepository.verificaColecao(cpf) != null) {
-//			Colecao colecao = this.consultaColecao(cpf);
-//			Item item = itemService.consultaItem(isbn);
-//			if(item != null) {
-//				if(colecao.itemIsSet(item) == true) {
-//					return item;
-//				} else {
-//					return null;
-//				}
-//			} else {
-//				return null;
-//			}
-//		} else {
-//			return null;
-//		}
-//	}
-//	
+			
 	
-	public void removeColecao(Colecao colecao) {
-//			colecaoRepository.delete(colecao);	
-		 colecaoRepository.deleteById(colecao.getID());
+	public boolean AddItem(String cpfPessoa, String isbnItem) {
+		if((cpfPessoa == "")||(isbnItem == "")) {
+			return false;
+		}
+
+		if(itemService.verificaItem(isbnItem)) {
+			Colecao colecao = this.consultaColecao(cpfPessoa);
+			Item itemNovo = itemService.consultaItem(isbnItem);
+			colecao.addItem(itemNovo);
+			
+			Colecao colecaoTeste = colecaoRepository.saveAndFlush(colecao);
+			if(colecaoTeste.equals(null)) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}	
 	}
 	
 	
+	public boolean removeItem(String cpf, String isbn) {
+		Colecao colecao = this.consultaColecao(cpf);
+		Item item = itemService.consultaItem(isbn);
+		if(item != null) {
+			boolean verifica = colecao.removeItem(item);
+			if(verifica == true) {
+				Colecao colecaoVerifica = colecaoRepository.saveAndFlush(colecao);
+				if(colecaoVerifica == null) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		} else {
+			return false;
+		}
+		return false;
+	}
+	
+	public Item consultaItemColecao(String cpf, String isbn) {
+		if(colecaoRepository.verificaColecao(cpf) != null) {
+			Colecao colecao = this.consultaColecao(cpf);
+			Item item = itemService.consultaItem(isbn);
+			if(item != null) {
+				if(colecao.itemIsSet(item) == true) {
+					return item;
+				} else {
+					return null;
+				}
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	public void removeColecao(Colecao colecao) {
+		colecaoRepository.deleteById(colecao.getID());
+	}
+
 	public ArrayList<Colecao> consultaColecoes() {
 		return (ArrayList<Colecao>) colecaoRepository.findAll();
 	}
-
 
 }
