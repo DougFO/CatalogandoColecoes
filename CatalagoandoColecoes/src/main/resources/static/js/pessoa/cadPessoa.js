@@ -32,7 +32,8 @@ jQuery(document).ready(function($) {
 	                                             //$('#botaoCad').html('Novo Cadastro');
 	
 												//console.log(data);
-	                                        	window.location.href = "/pessoa/cadastro/sucesso";
+	                                        	//window.location.href = "/pessoa/cadastro/sucesso";
+	                                        	window.location.href = "/pessoa";
 	                                    } else {
 											alert("Pessoa já cadastrada!");
 										}

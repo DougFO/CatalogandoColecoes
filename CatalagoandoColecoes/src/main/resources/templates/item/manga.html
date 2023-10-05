@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Página de cadastro de Item</title>	
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		
+		
+		<link th:href="@{/css/navbars.css}" rel="stylesheet">
+		<style>
+			form{
+			  padding: 30px 0;
+			}					
+			
+			.formulario {
+				padding: 30px 0;
+				background-color: rgb(223, 223, 223);
+				border-radius: 5px;
+				width: 70%;
+				text-align: center;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<main>
+			<div th:replace="~{/barraNavegacao/index :: barraNavegacao}">
+				
+			</div>
+			<!--<form method="post" action="api/cadastroPessoa/save">-->
+			<!--<form method="post" action="/api/v1/pessoa" onsubmit="cadastrado()">-->
+			<div class="container formulario">
+				<div class="row justify-content-md-center">
+				<!--<div class="row">-->
+					<div class="col-md-8">	
+						<h3>Cadastro de item</h3>
+						<hr>
+						<form method="put" id="myForm">
+							<!--<form id="myForm">-->
+							
+							<label for="lItemIsbn">ISBN:</label><br>
+							<input type="text" id="lItemIsbn" name="isbn" class="form-control" th:value="${manga.isbn}"><br>
+							
+							<label for="lItemTitulo">Título:</label><br>
+							<input type="text" id="lItemTitulo" name="titulo" class="form-control" th:value="${manga.titulo}" required><br>
+							
+							<label for="lItemVolume">Volume:</label><br>
+							<input type="text" id="lItemVolume" name="volume" class="form-control" th:value="${manga.volume}" required><br>
+							
+							<label for="lItemAutor">Autor:</label><br>
+							<input type="text" id="lItemAutor" name="autor" class="form-control" th:value="${manga.autor}"><br>
+							
+							<label for="lItemDesenhista">Desenhista:</label><br>
+							<input type="text" id="lItemDesenhista" name="desenhista" class="form-control" th:value="${manga.desenhista}"><br>
+							
+							<label for="lItemGenero">Genero:</label><br>
+							<input type="text" id="lItemGenero" name="genero" class="form-control" th:value="${manga.genero}"><br>
+							
+							<label for="lItemEditoraNacional">Editora Nacional:</label><br>
+							<input type="text" id="lItemEditoraNacional" name="editoraNacional" class="form-control" th:value="${manga.editoraNacional}"><br>
+							
+							<label for="lItemObservacao">Observação:</label><br>
+							<input type="text" id="lItemObservacao" name="observacao" class="form-control" th:value="${manga.observacao}"><br>
+							
+							<label for="lItemQtdPaginas">Quantidade de páginas:</label><br>
+							<input type="number" id="lItemQtdPaginas" name="qtd_paginas" class="form-control" th:value="${manga.qtd_paginas}"><br>
+							
+							<label for="lItemValor">Valor:</label><br>
+							<input type="number" id="lItemValor" name="valor" class="form-control" th:value="${manga.valor}"><br><br><br>
+							<h2>Dados mais específicos</h2>
+							<hr>			
+							
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="opcao" id="manga" value="manga" checked>
+							  <label class="form-check-label" for="flexRadioDisabled">
+							    Mangá
+							  </label>
+							</div>									
+							
+							<div id="divManga">
+								<h4>Mangá</h4>
+								<label for="tipoManga">Tipo do mangá:</label><br>
+								<select id="tipoManga" name="tipo" class="form-control">
+									<option value=0></option>
+									<option value=1>Shonen</option>
+									<option value=2>Shoujo</option>
+									<option value=3>Seinen</option>
+									<option value=4>Kodomo</option>
+									<option value=5>Josei</option>
+								</select><br><br>
+							</div>
+														
+	
+								<button id="botaoEditar" class="btn btn-primary form-control">Editar</button>
+						</form>										
+		</main>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/item/manga.js}"></script>
+	</body>
+</html>

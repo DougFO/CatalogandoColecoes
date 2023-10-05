@@ -1,8 +1,65 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Página dos itens</title>
-	</head>
-	<body>
-		<h1>Página dos itens</h1>
+        <title>Pessoas</title>
+          <meta charset="utf-8">
+          <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		
+		
+		<link th:href="@{/css/navbars.css}" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" th:href="@{/DataTables-1.10.20/css/dataTables.min.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/DataTables-1.10.20/css/dataTable.css}">       
+    </head>
+    <body>
+		<main>
+			<div th:replace="~{/barraNavegacao/index :: barraNavegacao}">
+				
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<h3>
+							Lista de Itens
+						</h3>
+						<table id="tabelaPessoas" class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<th>
+										ID
+									</th>
+									<th>
+										ISBN
+									</th>
+									<th>
+										TÍTULO
+									</th>
+									<th>
+										VOLUME
+									</th>
+									<th>
+										MANGÁ/HQ
+									</th>
+									<th>
+										
+									</th>
+									<th>
+										
+									</th>
+								</tr>
+							</thead>
+							<tbody id="corpoTabela">
+														
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>				
+		</main>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/scripts.js}"></script>
+		<script th:src="@{/js/item/itens.js}"></script>
+		<script type="text/javascript" th:src="@{/DataTables-1.10.20/js/jquery.dataTables.min.js}"></script>
 	</body>
 </html>

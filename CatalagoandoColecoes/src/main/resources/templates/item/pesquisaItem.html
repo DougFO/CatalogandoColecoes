@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Página de pesquisa de item</title>
+		
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		
+		
+		<link th:href="@{/css/navbars.css}" rel="stylesheet">
+		<style>
+			form{
+			  padding: 30px 0;
+			}					
+			
+			.formulario {
+				padding: 30px 0;
+				background-color: rgb(192, 192, 192);
+				border-radius: 5px;
+				width: 70%;
+				text-align: center;
+			}
+		</style>
+
+	</head>
+	<body>
+		<!--<main>-->
+		<div th:replace="~{/barraNavegacao/index :: barraNavegacao}">
+				
+		</div>	
+		<main>
+				<div class="container">
+					<div class="row">						
+						<div class="col-md-6">
+							<label for="opcaoPesquisa">Escolha uma opção abaixo:</label><br>
+							<select id="opcaoPesquisa" onchange="carregarCampos()">
+								<option value="nada"></option>
+								<option value="isbn">ISBN</option>
+								<option value="titulo">Título</option>
+							</select><br><br>
+							<label for="lIsbnPesquisa">ISBN:</label><br>
+							 <input type="text" id="lIsbnPesquisa" name="isbnPesquisa" class="form-control"><br>
+							 
+							 <label for="lTituloPesquisa">Nome:</label><br>
+							 <input type="text" id="lTituloPesquisa" name="tituloPesquisa" class="form-control"><br>
+							 <button id="botaoPesquisa" class="btn btn-primary" onclick="pesquisar()">Pesquisar</button>
+						</div>
+					</div>
+				</div>	
+		</main>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/scripts.js}"></script>
+		<script th:src="@{/js/item/pesquisaItem.js}"></script>
+		<script type="text/javascript" th:src="@{/DataTables-1.10.20/js/jquery.dataTables.min.js}"></script>
+	</body>
+</html>

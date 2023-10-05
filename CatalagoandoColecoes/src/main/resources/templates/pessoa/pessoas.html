@@ -71,7 +71,8 @@
 										<a class="btn btn-primary" th:href="@{'../pessoa/'+${p.cpf}}">Editar</a>					
 									</td>
 									<td>
-										<button class="btn btn-danger" th:attr="onclick='remover(' + ${p.cpf} + ')'">Remover</button>						
+										<!--<a class="btn btn-danger" th:href="@{'../pessoa/excluir(cpf=${p.cpf})}">Remover</a>-->
+										<a class="btn btn-danger" th:href="@{'../pessoa/excluir/'+${p.cpf}}">Remover</a>						
 									</td>
 								</tr>			
 							</tbody>
