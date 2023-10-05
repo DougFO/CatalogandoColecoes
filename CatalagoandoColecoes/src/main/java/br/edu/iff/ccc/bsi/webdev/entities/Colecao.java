@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Schema(
@@ -34,14 +36,17 @@ public class Colecao {
 	@OneToOne(mappedBy="colecao")
 	private Pessoa pessoa;
 	
+	@Size(min=1, message = "A coleção deve contem pelo menos 1 item")
 	@ManyToMany
 	@JoinTable(name = "item_colecao",
 			   joinColumns = @JoinColumn(name = "fk_colecao"),
 			   inverseJoinColumns = @JoinColumn(name = "fk_item"))
 	private List<Item> itens = new ArrayList<Item>();	
 	
+	
 	@Schema(description = "Nome da coleção.", 
     example = "DC")
+	@NotNull(message = "Nome não pode ser nulo")
 	private String nome;
 	 
  	@Schema(description = "Observação da coleção.", 
@@ -50,6 +55,7 @@ public class Colecao {
  	
 	@Schema(description = "Data de criação da coleção.", 
     example = "22/08/2014")
+	@NotNull(message = "Data de início da coleção não pode ser nula")
 	private Calendar data_inicio;
 	
 	public Colecao() {

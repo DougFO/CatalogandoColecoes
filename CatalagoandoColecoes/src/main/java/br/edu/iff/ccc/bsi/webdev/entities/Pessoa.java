@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Pessoa {
@@ -19,18 +21,22 @@ public class Pessoa {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 	
+	@NotEmpty(message = "Cpf não pode ser nulo")
 	@Column(nullable = false)
 	private String cpf;
 	
+	@NotEmpty(message = "Nome não pode ser nulo")
 	@Column(nullable = false)
 	private String nome;
 	
+	@NotEmpty(message = "Email não pode ser nulo")
 	@Column(nullable = false)
 	private String email;
 	
 	@Embedded
 	private Endereco endereco;
 	
+	@NotNull(message = "Usuario não pode ser nulo")
 //	@OneToOne(cascade=CascadeType.PERSIST)
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_usuario")

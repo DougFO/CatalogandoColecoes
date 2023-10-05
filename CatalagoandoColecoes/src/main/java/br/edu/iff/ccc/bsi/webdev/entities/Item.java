@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -21,10 +23,15 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
 	
-	@Column(nullable = false)
+	@NotEmpty(message = "ISBN não pode ser nulo")
+	@Column(nullable = false)	
 	private String isbn;
+	
+	@NotEmpty(message = "Título não pode ser nulo")
 	@Column(nullable = false)
 	private String titulo;
+	
+	@NotEmpty(message = "Volume não pode ser nulo")
 	@Column(nullable = false)
 	private String volume;
 	
