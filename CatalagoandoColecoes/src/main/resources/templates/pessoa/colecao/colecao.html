@@ -31,7 +31,7 @@
 				<div class="row justify-content-md-center">
 				<!--<div class="row">-->
 					<div class="col-md-8">	
-						<h3>Cadastro de coleção</h3>
+						<h3>Dados da coleção</h3>
 						<hr>
 						<form method="put" id="myForm">											
 							
@@ -42,7 +42,7 @@
 							<input type="text" id="lColecaoObservacao" name="observacao" class="form-control" required><br>
 							
 							<label for="lColecaoDataInicio">Data de início da coleção:</label><br>
-							<input type="text" id="lColecaoDataInicio" name="data_inicio" class="form-control" placeholder="dd/mm/yyyy"><br>
+							<input type="text" id="lColecaoDataInicio" name="calendario" class="form-control" placeholder="dd/mm/yyyy"><br>
 							
 							<label for="lPessoaCPF">CPF:</label><br>
 							<input type="text" id="lPessoaCPF" name="cpf" class="form-control" th:value="${cpf}" required readonly><br><br>
@@ -50,53 +50,83 @@
 							 <!--<input id="botaoCad" type="submit" value="Enviar">-->
 							 <button id="botaoEditar" class="btn btn-primary form-control">Editar</button>
 						</form>	
-						
-						
+					</div>	
+				</div>
+			</div>		
 				<br><br><br>
-				<br><br><br>		
-				<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-12">
-						<h3>
-							Lista de Itens da coleção
-						</h3>
-						<table id="tabelaItens" class="table table-hover table-striped">
-							<thead>
-								<tr>
-									<th>
-										ISBN
-									</th>
-									<th>
-										TITULO
-									</th>
-									<th>
-										VOLUME
-									</th>
-									<th>
-										EDITORA NACIONAL
-									</th>
-									<!--<th>
-										Colecao
-									</th>
-									<th>
-										CPF
-									</th>-->
-									<th>
-										
-									</th>
-									<th>
-										
-									</th>
-								</tr>
-							</thead>
-							<tbody id="corpoTabela">
-											
-							</tbody>
-						</table>
-					</div>
+				
+				<div class="container formulario">
+					<div class="row justify-content-md-center">
+				<!--<div class="row">-->
+						<div class="col-md-8">	
+							<h3>Adicionar item</h3>
+							<hr>
+							<form id="myFormAddItem">											
+								
+								<label for="lIsbnItem">ISBN do Item:</label><br>
+								<input type="text" id="lIsbnItem" name="isbn" class="form-control" required><br>			
+								
+								<label for="lPessoaCPF">CPF do dono da coleção:</label><br>
+								<input type="text" id="lPessoaCPF" name="cpf" class="form-control" th:value="${cpf}" required readonly><br><br>
+	
+								 <!--<input id="botaoCad" type="submit" value="Enviar">-->
+								 <button id="addItem" class="btn btn-success form-control" onclick="addItem()">Adicionar Item</button><br><br>
+							</form>	
+					</div>	
 				</div>
 			</div>	
-															
+			<br><br><br>
+			
+			<div class="container formulario">
+				<div class="row justify-content-md-center">
+				<!--<div class="row">-->
+					<div class="col-md-8">			
+						<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12">
+								<h3>
+									Lista de Itens da coleção
+								</h3>
+								
+								<table id="tabelaItens" class="table table-hover table-striped">
+									<thead>
+										<tr>
+											<th>
+												ISBN
+											</th>
+											<th>
+												TITULO
+											</th>
+											<th>
+												VOLUME
+											</th>
+											<th>
+												EDITORA NACIONAL
+											</th>
+											<!--<th>
+												Colecao
+											</th>
+											<th>
+												CPF
+											</th>-->
+											<th>
+												
+											</th>
+											<th>
+												
+											</th>
+										</tr>
+									</thead>
+									<tbody id="corpoTabela">
+													
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>	
+				</div>	
+			</div>
+		</div>													
 		</main>
 		<script th:src="@{/js/jquery3.4.1.js}"></script>
 		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>

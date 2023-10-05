@@ -1,6 +1,7 @@
 $(document).ready( function () {
 	 
 	
+    
 
 	 
 
@@ -119,4 +120,104 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 }
 
+
+
+	 $("#botaoEditar").one("click", function() {
+
+                        $('#myForm').submit(function(e){
+                                e.preventDefault();
+
+                                var dados = jQuery( this ).serialize();
+                                //Chamando a função validarFormulário que testa o cpf e se os listOptions estão em branco
+                                jQuery.ajax({
+                                    type: "PUT",                             
+                                    url: "/api/v1/pessoa/"+document.getElementById('lPessoaCPF').value+"/Colecao",
+                                    async: false,
+                                    data: dados,
+                                    //encoding:"utf-8",
+                                    success: function( data )
+                                    {
+										if(data != "") {
+											//$('#botaoEditar').attr("disabled",true);
+											//$flagCadAssoc = 1;
+											//novoCadastro('#myForm');	
+	                                        //$(location).attr('href', '/cadastro/sucesso');
+	                                        // ------------ Desabilita os inputs -----------------------------------
+	                                        //$('#myForm input').attr("readonly", true);
+	                                        
+	                                        
+	
+	                                              	//$flagCadPessoa = 1;
+	
+	                                            // ------- Atibuindo o texto "Novo Cadastro" ao botão de cadastro ------
+	                                             //$('#botaoCad').html('Novo Cadastro');
+	
+												//console.log(data);
+	                                        	//window.location.href = "/pessoa/editar/sucesso";
+	                                        	window.location.reload();
+	                                    } else {
+											alert("Pessoa não cadastrada!");
+										}
+
+                                    }
+
+
+                                });
+
+                        });
+		});	
+		
+		
+		function addItem() {
+		
+		
+			$("#addItem").one("click", function() {
+	
+			                        $('#myFormAddItem"').submit(function(e){
+			                                e.preventDefault();
+			
+			//{cpf}/Colecao/Item/{isbn}
+			                                var dados = jQuery( this ).serialize();
+			                                //Chamando a função validarFormulário que testa o cpf e se os listOptions estão em branco
+			                                jQuery.ajax({
+			                                    type: "post",                             
+			                                    url: "/api/v1/pessoa/"+document.getElementById('lPessoaCPF').value+"/Colecao/Item/"+document.getElementById('lIsbnItem').value,
+			                                    async: false,
+			                                    data: dados,
+			                                    //encoding:"utf-8",
+			                                    success: function( data )
+			                                    {
+													if(data != "") {
+														console.log("CPF: "+document.getElementById('lPessoaCPF'));
+				                                         console.log("ISBN: "+document.getElementById('lIsbnItem').value);
+														//$('#botaoEditar').attr("disabled",true);
+														//$flagCadAssoc = 1;
+														//novoCadastro('#myForm');	
+				                                        //$(location).attr('href', '/cadastro/sucesso');
+				                                        // ------------ Desabilita os inputs -----------------------------------
+				                                        //$('#myForm input').attr("readonly", true);
+				                                        
+				                                        
+				
+				                                              	//$flagCadPessoa = 1;
+				
+				                                            // ------- Atibuindo o texto "Novo Cadastro" ao botão de cadastro ------
+				                                             //$('#botaoCad').html('Novo Cadastro');
+				
+															//console.log(data);
+				                                        	//window.location.href = "/pessoa/editar/sucesso";
+				                                        	//window.location.reload();
+				                                    } else {
+														alert("Pessoa não cadastrada!");
+													}
+			
+			                                    }
+			
+			
+			                                });
+			
+			                        });
+					});	
+		}
+		
 
