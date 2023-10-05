@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Página de cadastro de coleção</title>	
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+		
+		
+		<link th:href="@{/css/navbars.css}" rel="stylesheet">
+		<style>
+			form{
+			  padding: 30px 0;
+			}					
+			
+			.formulario {
+				padding: 30px 0;
+				background-color: rgb(223, 223, 223);
+				border-radius: 5px;
+				width: 70%;
+				text-align: center;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<main>
+			<div th:replace="~{/barraNavegacao/index :: barraNavegacao}">
+				
+			</div>
+			<!--<form method="post" action="api/cadastroPessoa/save">-->
+			<!--<form method="post" action="/api/v1/pessoa" onsubmit="cadastrado()">-->
+			<div class="container formulario">
+				<div class="row justify-content-md-center">
+				<!--<div class="row">-->
+					<div class="col-md-8">	
+						<h3>Cadastro de coleção</h3>
+						<hr>
+						<form method="put" id="myForm">											
+							
+							<label for="lColecaoNome">Nome da coleção:</label><br>
+							<input type="text" id="lColecaoNome" name="nome" class="form-control" required><br>
+							
+							<label for="lColecaoObservacao">Observação:</label><br>
+							<input type="text" id="lColecaoObservacao" name="observacao" class="form-control" required><br>
+							
+							<label for="lColecaoDataInicio">Data de início da coleção:</label><br>
+							<input type="text" id="lColecaoDataInicio" name="data_inicio" class="form-control" placeholder="dd/mm/yyyy"><br>
+							
+							<label for="lPessoaCPF">CPF:</label><br>
+							<input type="text" id="lPessoaCPF" name="cpf" class="form-control" th:value="${cpf}" required readonly><br><br>
+
+							 <!--<input id="botaoCad" type="submit" value="Enviar">-->
+							 <button id="botaoEditar" class="btn btn-primary form-control">Editar</button>
+						</form>	
+						
+						
+				<br><br><br>
+				<br><br><br>		
+				<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<h3>
+							Lista de Itens da coleção
+						</h3>
+						<table id="tabelaItens" class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<th>
+										ISBN
+									</th>
+									<th>
+										TITULO
+									</th>
+									<th>
+										VOLUME
+									</th>
+									<th>
+										EDITORA NACIONAL
+									</th>
+									<!--<th>
+										Colecao
+									</th>
+									<th>
+										CPF
+									</th>-->
+									<th>
+										
+									</th>
+									<th>
+										
+									</th>
+								</tr>
+							</thead>
+							<tbody id="corpoTabela">
+											
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>	
+															
+		</main>
+		<script th:src="@{/js/jquery3.4.1.js}"></script>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		<script th:src="@{/js/pessoa/colecao/colecao.js}"></script>
+	</body>
+</html>

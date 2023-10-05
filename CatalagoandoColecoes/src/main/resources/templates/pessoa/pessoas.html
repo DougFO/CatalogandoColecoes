@@ -37,14 +37,17 @@
 									<th>
 										EMAIL
 									</th>
-									<th>
+									<!--<th>
 										Colecao
-									</th>
+									</th>-->
 									<th>
 										
 									</th>
 									<th>
 										
+									</th>
+									<th>
+										COLEÇÃO
 									</th>
 								</tr>
 							</thead>
@@ -62,10 +65,10 @@
 									<td th:text="${p.email}">
 										Default
 									</td>
-									<td>
+									<!--<td>
 										<span th:if="${p.colecao == null}">Não tem!</span>
 										<span th:unless="${p.colecao == null}"><span th:text="${p.colecao.nome}"></span></span>
-									</td>				
+									</td>-->				
 									<td>
 										<!--<a class="btn btn-primary" th:href="@{'../pessoa/'+${p.cpf}(cpf=${p.cpf})}">Editar</a>-->	
 										<a class="btn btn-primary" th:href="@{'../pessoa/'+${p.cpf}}">Editar</a>					
@@ -73,6 +76,10 @@
 									<td>
 										<!--<a class="btn btn-danger" th:href="@{'../pessoa/excluir(cpf=${p.cpf})}">Remover</a>-->
 										<a class="btn btn-danger" th:href="@{'../pessoa/excluir/'+${p.cpf}}">Remover</a>						
+									</td>
+									<td>
+										<span th:if="${p.colecao == null}"><a class="btn btn-success" th:href="'/pessoa/'+${p.cpf}+'/colecao/cadastro'">Cadastrar Coleção</a></span>
+										<span th:unless="${p.colecao == null}"><a class="btn btn-primary" th:href="'/pessoa/'+${p.cpf}+'/colecao'">Acessar Coleção</a></span>
 									</td>
 								</tr>			
 							</tbody>

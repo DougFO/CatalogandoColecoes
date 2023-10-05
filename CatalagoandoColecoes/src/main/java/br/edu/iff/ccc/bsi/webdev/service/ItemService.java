@@ -193,7 +193,7 @@ public class ItemService {
 		item.setID(Long.parseLong(String.valueOf(itemConsultado.get("ID"))));
 		item.setAutor(itemConsultado.get("AUTOR"));
 		item.setDesenhista(itemConsultado.get("DESENHISTA"));
-		item.setEditoraNacional(itemConsultado.get("EDITORANACIONAL"));
+		item.setEditoraNacional(itemConsultado.get("EDITORA_NACIONAL"));
 		item.setGenero(itemConsultado.get("GENERO"));
 		item.setIsbn(itemConsultado.get("ISBN"));
 		item.setObservacao(itemConsultado.get("OBSERVACAO"));

@@ -50,6 +50,16 @@ public class PessoaController {
 		return "/pessoa/deletaPessoa.html";
 	}
 	
+	//pessoa/'+${p.cpf}+'/colecao/cadastro
+	@GetMapping("/pessoa/{cpf}/colecao")
+	public String carregarColecao(@PathVariable("cpf") String cpf,Model model) {
+		//Pessoa pessoa = pessoaService.consultaPessoa(cpf);
+		//model.addAttribute("pessoa", pessoa);
+		model.addAttribute("cpf", cpf);
+		//System.out.println("Nome: "+pessoas.get(0).getNome());
+		return "/pessoa/colecao/colecao.html";
+	}
+	
 //	@GetMapping("/pessoa/{cpf}")
 //	public String listarPessoa(@PathVariable("cpf") String cpf,Model model) {
 //		Pessoa pessoa = pessoaService.consultaPessoa(cpf);
